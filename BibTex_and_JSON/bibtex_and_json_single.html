@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>単体動作用：BibTeX and JSON Converter</title>
+
+    <meta property="og:title" content="単体動作用：BibTeX and JSON Converter">
+    <meta property="og:description" content="BiBTeX情報作成用の簡単なツール。新規書誌情報からJSONとBibTeX形式のデータを作成する、JSON形式データをマージするなど。">
+    <meta property="og:url" content="https://www.hi.h.kyoto-u.ac.jp/wp2024/wp-content/uploads/2024/07/bibtex_and_json_single.html">
+    <meta property="og:image" content="https://www.hi.h.kyoto-u.ac.jp/wp2024/wp-content/uploads/2024/04/CLLab-long-6CO-512-2fl2-150x150.png">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="京都大学認知言語学系研究室">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            font-size: 1rem;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* 全体ブロックの表示非表示 */
+        .content {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+
+        /* addItemの項目 */
+
+        #addBibJSON .group {
+            display: none;
+        }
+
+        #addBibJSON #groupA {
+            display: block;
+        }
+
+
+
+        #inputForm {
+            line-height: 1.1;
+        }
+
+        #addBibJSON {
+            background: #fefefe;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form#inputForm {
+            display: grid;
+            gap: 0px 15px;
+            color: #333;
+        }
+
+        #addBibJSON button[type="button"] {
+            cursor: pointer;
+            background-color: #f2f2f2;
+            color: rgb(60, 60, 60);
+            border: 1px solid #999;
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #in_form_guide button[type="button"] {
+            padding: 10px 15px;
+            background-color: #ebf2f5;
+            /* クールな青色 */
+            color: #333;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+
+        #addBibJSON button[type="button"]:active {
+            transform: scale(0.98);
+            /* クリック時に少し小さく */
+        }
+
+
+        #inputForm button.submit {
+            max-width: 40rem;
+            font-size: 1rem;
+            padding: 5px 15px;
+            vertical-align: middle;
+            color: #fff;
+            background-color: #666;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 1px;
+        }
+
+        #inputForm button.submit:hover {
+            color: #f2f2f2;
+            background-color: #080808;
+            background: transparent;
+        }
+
+        #in_form_guide button[type="button"]:hover {
+            color: #f2f2f2;
+            background-color: #0056b3;
+        }
+
+        #inputForm label {
+            font-weight: normal;
+            margin-bottom: 5px;
+        }
+
+        #inputForm input[type="text"],
+        #inputForm select,
+        #inputForm textarea {
+            font-size: 0.95rem;
+            padding: 5px 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 1px;
+        }
+
+        #inputForm input[type="text"] {
+            width: 20em;
+        }
+
+        #inputForm #note {
+            width: 80%;
+        }
+
+        /*
+            width: 100%;
+    padding: 10px;
+*/
+
+        textarea {
+            resize: vertical;
+        }
+
+        nav#in_form_guide {
+            margin-bottom: 0;
+        }
+
+        #inputForm div {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        #inputForm div.group {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .group div:first-child {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #newJsonOutput,
+        #newBibOutput {
+            background-color: #e9ecef;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 1px;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.0rem;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 600px) {
+            #inputForm form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            #inputForm form>div,
+            .group {
+                grid-column: span 2;
+            }
+
+            #in_form_guide button[type="button"] {
+                width: 32%;
+                max-width: 50%;
+            }
+
+            #newJsonOutput,
+            #newBibOutput {
+                grid-column: span 2;
+            }
+
+            p {
+                grid-column: span 2;
+            }
+        }
+
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar button {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .navbar button a {
+            color: #f2f2f2;
+            text-decoration: none;
+        }
+
+        .navbar button:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        #nav_new_JSON_bib {
+            /* margin-left: 20px; */
+            border-left: 5px solid #f2f2f2;
+        }
+
+        #entry_type_input {
+            width: 16em;
+        }
+
+
+
+        #inputForm label {
+            display: inline-block;
+            min-width: 6rem;
+        }
+
+        #inputForm #month,
+        #inputForm #number,
+        #inputForm #volume {
+            width: 6em;
+        }
+
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar button {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        #nav_new_JSON_bib {
+            /* margin-left: 20px; */
+            border-left: 5px solid #f2f2f2;
+        }
+
+        .navbar button:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+
+        #entry_type_input {
+            width: 16em;
+        }
+
+
+        #inputForm label {
+            display: inline-block;
+            min-width: 6rem;
+        }
+
+        #month,
+        #number,
+        #volume {
+            width: 6em;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- スクリプトのソース、使用していない部分も多いです。 -->
+    <div class="navbar">
+        <button onclick="showContent('mergeBib')">Merge BibTeX</button>
+        <button onclick="showContent('bibToJson')">BibTeX to JSON</button>
+        <button onclick="showContent('jsonToBib')">JSON to BibTeX</button>
+        <button onclick="showContent('mergeJson')">Merge JSON</button>
+        <button onclick="showContent('addBibJSON')" id="nav_new_JSON_bib">&nbsp; New Item</button>
+    </div>
+
+    <div id="bibToJson" class="content">
+        <h1>BibTeX to JSON Converter</h1>
+        <h3>Input BibTeX:</h3>
+        <textarea id="bibInput" rows="10" cols="80"></textarea><br><br>
+        <button onclick="convertBibToJson()">Convert to JSON</button><br><br>
+        <h3>Output JSON:</h3>
+        <textarea id="jsonOutput" rows="10" cols="80" readonly></textarea><br><br>
+        <button onclick="downloadJson()">Download JSON</button>
+        <button onclick="copyJson()">Copy to Clipboard</button>
+    </div>
+
+    <div id="jsonToBib" class="content">
+        <h1>JSON to BibTeX Converter</h1>
+        <h3>Input JSON:</h3>
+        <textarea id="jsonInput" rows="10" cols="80" placeholder="[{}, {}]のリスト形式にする。単体なら[]で挟む。"></textarea><br><br>
+        <button onclick="convertJsonToBib()">Convert to BibTeX</button><br><br>
+        <h3>Output BibTeX:</h3>
+        <textarea id="bibOutput" rows="10" cols="80" readonly></textarea><br><br>
+        <button onclick="downloadBib()">Download BibTeX</button>
+        <button onclick="copyBib()">Copy to Clipboard</button>
+    </div>
+
+
+    <div id="mergeJson" class="content">
+        <h1>Merge JSON Contents</h1>
+        <h3>Input JSON 1:</h3>
+        <textarea id="jsonInput1" rows="10" cols="80"></textarea><br><br>
+        <h3>Input JSON 2:</h3>
+        <textarea id="jsonInput2" rows="10" cols="80"></textarea><br><br>
+        <button onclick="mergeJsonFromTextarea()">Merge JSONs</button><br><br>
+        <h3>Output JSON:</h3>
+        <textarea id="mergedJsonOutput" rows="10" cols="80" readonly></textarea><br><br>
+        <button onclick="downloadMergedJson()">Download Merged JSON</button>
+        <button onclick="copyMergedJson()">Copy to Clipboard</button>
+
+        <p>同じ識別子で中身が異なる場合は一方の識別子に_1を追加して統合する。</p>
+    </div>
+
+
+    <div id="mergeBib" class="content">
+        <h1>Merge BibTeX Contents</h1>
+        <h3>Input BibTeX 1:</h3>
+        <textarea id="bibInput1" rows="10" cols="80"></textarea><br><br>
+        <h3>Input BibTeX 2:</h3>
+        <textarea id="bibInput2" rows="10" cols="80"></textarea><br><br>
+        <button onclick="mergeBib()">Merge</button><br><br>
+        <h3>Output BibTeX:</h3>
+        <textarea id="mergedBibOutput" rows="10" cols="80" readonly></textarea><br><br>
+        <button onclick="downloadMergedBib()">Download Merged BibTeX</button>
+        <button onclick="copyMergedBib()">Copy Merged BibTeX</button>
+    </div>
+
+
+
+
+    <div id="addBibJSON" class="content active">
+
+        <h2>新規書誌情報からJSONとBibTeX形式のデータを作成する</h2>
+
+        <form id="inputForm">
+
+
+            <button type="button" onclick="createJsonAndBib()" class="submit">作成</button>
+
+            <nav id="in_form_guide">
+                <button type="button" onclick="toggleGroup('groupB')">グループBを表示/非表示</button>
+                <button type="button" onclick="toggleGroup('groupC')">グループCを表示/非表示</button>
+                <button type="button" onclick="toggleGroup('groupD')">noteを表示/非表示</button>
+            </nav>
+            <br>
+
+            <div class="group" id="groupA">
+                <div>
+                    <label for="entry_type_select">entry_type:</label>
+                    <select id="entry_type_select">
+                        <option value="article">article</option>
+                        <option value="book">book</option>
+                        <option value="incollection">incollection（例：複数著者書籍の一部）</option>
+                        <option value="conference">conference</option>
+                        <option value="inproceedings">inproceedings（例：予稿集の一部）</option>
+                        <option value="proceedings">proceedings</option>
+                        <option value="manual">manual</option>
+                        <option value="booklet">booklet</option>
+                        <option value="inbook">inbook</option>
+                        <option value="techreport">techreport</option>
+                        <option value="hoyakusho">hoyakusho（独自）</option>
+                        <option value="masterthesis">masterthesis</option>
+                        <option value="phdthesis">phdthesis</option>
+                        <option value="unpublished">unpublished</option>
+                        <option value="misc">misc</option>
+                        <option value=""></option>
+                    </select>
+                    <input type="text" id="entry_type_input" placeholder="選択肢になければ自由入力（選択より優先）">
+                </div>
+
+                <div>
+                    <label for="citation_key">citation_key:</label>
+                    <input type="text" id="citation_key" placeholder="BibTeXで使いたいキー">
+                </div>
+
+                <div>
+                    <label for="year">year:</label>
+                    <input type="text" id="year" placeholder="YYYY">
+                </div>
+
+                <div>
+                    <label for="author">author:</label>
+                    <input type="text" id="author" placeholder="著者（複数なら and 使用）">
+                </div>
+
+                <div>
+                    <label for="yomi">yomi:</label>
+                    <input type="text" id="yomi" placeholder="読み仮名（日本語著者の整列のため）">
+                </div>
+
+                <div>
+                    <label for="editor">editor:</label>
+                    <input type="text" id="editor">
+                </div>
+
+                <div>
+                    <label for="title">title:</label>
+                    <input type="text" id="title" placeholder="@bookのtitleにはこちらを使用">
+                    &nbsp; {}で挟む<input type="checkbox" id="title_brace" checked>
+                </div>
+
+                <div>
+                    <label for="booktitle">booktitle:</label>
+                    <input type="text" id="booktitle" placeholder="@incollection, @inproceedings等で使用">
+                </div>
+
+                <div>
+                    <label for="journal">journal:</label>
+                    <input type="text" id="journal" placeholder="@article等で使用">
+                </div>
+
+                <div>
+                    <label for="volume">volume:</label>
+                    <input type="text" id="volume">
+                </div>
+
+                <div>
+                    <label for="number">number:</label>
+                    <input type="text" id="number">
+                </div>
+
+                <div>
+                    <label for="month">month:</label>
+                    <input type="text" id="month">
+                </div>
+
+                <div>
+                    <label for="pages">pages:</label>
+                    <input type="text" id="pages" placeholder="--か-で繋ぐ">
+                </div>
+            </div>
+
+            <div class="group" id="groupB">
+                <div>B - 主にBook用</div>
+
+                <div>
+                    <label for="edition">edition:</label>
+                    <input type="text" id="edition">
+                </div>
+
+                <div>
+                    <label for="publisher">publisher:</label>
+                    <input type="text" id="publisher">
+                </div>
+
+                <div>
+                    <label for="address">address:</label>
+                    <input type="text" id="address">
+                </div>
+
+                <div>
+                    <label for="chapter">chapter:</label>
+                    <input type="text" id="chapter">
+                </div>
+            </div>
+
+            <div class="group" id="groupC">
+                <div>C - その他</div>
+                <div>
+                    <label for="key">key:</label>
+                    <input type="text" id="key" placeholder="authorがない場合のソート用">
+                </div>
+                <div>
+                    <label for="type">type:</label>
+                    <input type="text" id="type">
+                </div>
+                <div>
+                    <label for="crossref">crossref:</label>
+                    <input type="text" id="crossref">
+                </div>
+
+                <div>
+                    <label for="institution">institution:</label>
+                    <input type="text" id="institution">
+                </div>
+
+                <div>
+                    <label for="school">school:</label>
+                    <input type="text" id="school" placeholder="PhDThesis等で使用">
+                </div>
+
+                <div>
+                    <label for="annote">annote:</label>
+                    <input type="text" id="annote">
+                </div>
+
+                <div>
+                    <label for="howpublished">howpublished:</label>
+                    <input type="text" id="howpublished">
+                </div>
+            </div>
+
+            <div class="group" id="groupD">
+                <div>
+                    <label for="note">note:</label>
+                    <input type="text" id="note">
+                </div>
+            </div>
+            <button type="button" onclick="createJsonAndBib()" class="submit">↑の内容で作成</button>
+
+            <br>
+        </form>
+
+
+        <br>
+
+        <textarea id="newBibOutput" rows="10" cols="50" readonly placeholder="BibTeX用"></textarea>
+        <button type="button" onclick="copyNewBibToClipboard()">Copy to Clipboard</button>
+
+        <br><br>
+
+        <textarea id="newJsonOutput" rows="10" cols="50" placeholder="JSON 複数繋げる場合は[]に入れて,で繋ぐ" readonly></textarea>
+        <button type="button" onclick="copyNewJsonToClipboard()">Copy to Clipboard</button>
+
+        <p><p>値を入れた項目のみデータ化する。ダブルクオーテーションには未対応なので、適宜``と''に置き換えて使用すること。</p></p>
+
+
+
+    </div>
+
+
+
+    <script>
+        /* MergeJson 関数は拡張前のもの。 */
+
+        function parseBibContent(content) {
+            const entries = content.split(/@/).filter(entry => entry.trim().length > 0);
+            const result = [];
+
+            entries.forEach(entry => {
+                const [header, ...body] = entry.split('\n').filter(line => line.trim().length > 0);
+                const [kind, id] = header.split('{').map(item => item.trim().replace(',', ''));
+
+                const entryObject = { citation_key: id, entry_type: kind };
+                body.forEach(line => {
+                    const match = line.match(/(\w+)\s*=\s*[{"](.*?)[}"]/);
+                    if (match) {
+                        const key = match[1];
+                        const value = match[2];
+                        entryObject[key] = value;
+                    }
+                });
+
+                result.push(entryObject);
+            });
+
+            return result;
+        }
+
+        function convertBibToJson() {
+            const bibInput = document.getElementById('bibInput').value;
+            const jsonOutput = document.getElementById('jsonOutput');
+
+            if (bibInput.trim().length === 0) {
+                alert('Please enter BibTeX content');
+                return;
+            }
+
+            const jsonArray = parseBibContent(bibInput);
+            jsonOutput.value = JSON.stringify(jsonArray, null, 2);
+        }
+
+        function convertJsonToBib() {
+            const jsonInput = document.getElementById('jsonInput').value;
+            const bibOutput = document.getElementById('bibOutput');
+
+            if (jsonInput.trim().length === 0) {
+                alert('Please enter JSON content');
+                return;
+            }
+
+            try {
+                const jsonArray = JSON.parse(jsonInput);
+                let bibContent = '';
+
+                jsonArray.forEach(entry => {
+                    const { citation_key, entry_type, ...fields } = entry;
+                    let entryContent = `@${entry_type}{${citation_key},\n`;
+
+                    for (const key in fields) {
+                        entryContent += `  ${key} = {${fields[key]}},\n`;
+                    }
+
+                    entryContent = entryContent.trim().replace(/,$/, '') + '\n}\n\n';
+                    bibContent += entryContent;
+                });
+
+                bibOutput.value = bibContent.trim();
+            } catch (e) {
+                alert('Invalid JSON content');
+            }
+        }
+
+        function downloadJson() {
+            const jsonOutput = document.getElementById('jsonOutput').value;
+            const blob = new Blob([jsonOutput], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'output.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadBib() {
+            const bibOutput = document.getElementById('bibOutput').value;
+            const blob = new Blob([bibOutput], { type: 'application/x-bibtex' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'output.bib';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function copyJson() {
+            const jsonOutput = document.getElementById('jsonOutput');
+            jsonOutput.select();
+            document.execCommand('copy');
+            alert('JSON content copied to clipboard');
+        }
+
+        function copyBib() {
+            const bibOutput = document.getElementById('bibOutput');
+            bibOutput.select();
+            document.execCommand('copy');
+            alert('BibTeX content copied to clipboard');
+        }
+
+
+        function mergeJsonFromTextarea() {
+            const jsonInput1 = document.getElementById('jsonInput1').value;
+            const jsonInput2 = document.getElementById('jsonInput2').value;
+            const mergedJsonOutput = document.getElementById('mergedJsonOutput');
+
+            if (jsonInput1.trim().length === 0 || jsonInput2.trim().length === 0) {
+                alert('Please enter both JSON contents');
+                return;
+            }
+
+            try {
+                const jsonArray1 = JSON.parse(jsonInput1);
+                const jsonArray2 = JSON.parse(jsonInput2);
+                const mergedArray = mergeJsonArrays(jsonArray1, jsonArray2);
+
+                const sortedEntries = mergedArray.sort((a, b) => {
+                    const authorA = a.author || '';
+                    const authorB = b.author || '';
+                    if (authorA === authorB) {
+                        return a.citation_key.localeCompare(b.citation_key);
+                    }
+                    return authorA.localeCompare(authorB);
+                });
+
+                mergedJsonOutput.value = JSON.stringify(sortedEntries, null, 2);
+            } catch (e) {
+                alert('Invalid JSON content');
+            }
+        }
+
+        function mergeJsonArrays(jsonArray1, jsonArray2) {
+            // 入力が配列かどうかをチェック
+            if (!Array.isArray(jsonArray1) || !Array.isArray(jsonArray2)) {
+                throw new Error("Both arguments must be arrays");
+            }
+
+            const mergedMap = new Map();
+
+            // jsonArray1 を Map に追加
+            jsonArray1.forEach(item => {
+                if (item.citation_key) {
+                    mergedMap.set(item.citation_key, item);
+                }
+            });
+
+            jsonArray2.forEach(entry => {
+                const { citation_key } = entry;
+
+                if (mergedMap.has(citation_key)) {
+                    const existingEntry = mergedMap.get(citation_key);
+
+                    if (JSON.stringify(existingEntry) === JSON.stringify(entry)) {
+                        return;
+                    }
+
+                    let newId = `${citation_key}_1`;
+                    while (mergedMap.has(newId)) {
+                        newId = `${newId}_1`;
+                    }
+
+                    mergedMap.set(newId, { ...entry, citation_key: newId });
+                } else {
+                    mergedMap.set(citation_key, entry);
+                }
+            });
+
+            return Array.from(mergedMap.values());
+        }
+
+
+
+        function mergeJson() {
+            const jsonInput1 = document.getElementById('jsonInput1').value;
+            const jsonInput2 = document.getElementById('jsonInput2').value;
+            const mergedJsonOutput = document.getElementById('mergedJsonOutput');
+
+            if (jsonInput1.trim().length === 0 || jsonInput2.trim().length === 0) {
+                alert('Please enter both JSON contents');
+                return;
+            }
+
+            try {
+                const jsonArray1 = JSON.parse(jsonInput1);
+                const jsonArray2 = JSON.parse(jsonInput2);
+                const mergedArray = [...jsonArray1];
+
+                jsonArray2.forEach(entry => {
+                    const { citation_key } = entry;
+
+                    if (mergedArray.some(item => item.citation_key === citation_key)) {
+                        const existingEntry = mergedArray.find(item => item.citation_key === citation_key);
+                        if (JSON.stringify(existingEntry) === JSON.stringify(entry)) {
+                            return;
+                        }
+
+                        let newId = `${citation_key}_1`;
+                        while (mergedArray.some(item => item.citation_key === newId)) {
+                            newId = `${newId}_1`;
+                        }
+
+                        mergedArray.push({ ...entry, citation_key: newId });
+                    } else {
+                        mergedArray.push(entry);
+                    }
+                });
+
+                const sortedEntries = mergedArray.sort((a, b) => {
+                    const authorA = a.author || '';
+                    const authorB = b.author || '';
+                    if (authorA === authorB) {
+                        return a.citation_key.localeCompare(b.citation_key);
+                    }
+                    return authorA.localeCompare(authorB);
+                });
+
+                mergedJsonOutput.value = JSON.stringify(sortedEntries, null, 2);
+            } catch (e) {
+                alert('Invalid JSON content');
+            }
+        }
+
+        function convertMergedJsonToBib(jsonArray) {
+            // const mergedJsonOutput = document.getElementById('mergedJsonOutput').value;
+            const mergedBibOutput = document.getElementById('mergedBibOutput');
+
+            /*
+            if (mergedJsonOutput.trim().length === 0) {
+                alert('No merged JSON content to convert');
+                return;
+            }
+            */
+
+            try {
+                // const jsonArray = JSON.parse(mergedJsonOutput);
+                let bibContent = '';
+
+                jsonArray.forEach(entry => {
+                    const { citation_key, entry_type, ...fields } = entry;
+                    let entryContent = `@${entry_type}{${citation_key},\n`;
+
+                    for (const key in fields) {
+                        entryContent += `  ${key} = {${fields[key]}},\n`;
+                    }
+
+                    entryContent = entryContent.trim().replace(/,$/, '') + '\n}\n\n';
+                    bibContent += entryContent;
+                });
+
+                mergedBibOutput.value = bibContent.trim();
+            } catch (e) {
+                alert('Invalid JSON content');
+            }
+        }
+
+        function downloadMergedJson() {
+            const mergedJsonOutput = document.getElementById('mergedJsonOutput').value;
+            const blob = new Blob([mergedJsonOutput], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'merged_output.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function copyMergedJson() {
+            const mergedJsonOutput = document.getElementById('mergedJsonOutput');
+            mergedJsonOutput.select();
+            document.execCommand('copy');
+            alert('Merged JSON content copied to clipboard');
+        }
+
+        function downloadMergedBib() {
+            const mergedBibOutput = document.getElementById('mergedBibOutput').value;
+            const blob = new Blob([mergedBibOutput], { type: 'application/x-bibtex' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'merged_output.bib';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function copyMergedBib() {
+            const mergedBibOutput = document.getElementById('mergedBibOutput');
+            mergedBibOutput.select();
+            document.execCommand('copy');
+            alert('Merged BibTeX content copied to clipboard');
+        }
+
+        function mergeBib() {
+            const bibInput1 = document.getElementById('bibInput1').value;
+            const bibInput2 = document.getElementById('bibInput2').value;
+
+            if (bibInput1.trim().length === 0 || bibInput2.trim().length === 0) {
+                alert('Please enter both BibTeX contents');
+                return;
+            }
+
+            const json1 = parseBibContent(bibInput1);
+            const json2 = parseBibContent(bibInput2);
+
+            //const jsonInput1 = JSON.stringify(json1);
+            //const jsonInput2 = JSON.stringify(json2);
+
+            // alert(jsonInput1);
+
+            // Use mergeJson to merge JSON data
+            const mergedArray = mergeJsonArrays(json1, json2);
+            // document.getElementById('mergedJsonOutput').value = mergedJsonOutput;
+
+            // Convert merged JSON to BibTeX
+            convertMergedJsonToBib(mergedArray);
+        }
+
+
+
+
+    </script>
+    
+    <script>
+        function toggleGroup(groupId) {
+            const group = document.getElementById(groupId);
+            if (group.style.display === "none" || group.style.display === "") {
+                group.style.display = "block";
+            } else {
+                group.style.display = "none";
+            }
+        }
+
+        function escapeString(str) {
+            return str.replace(/"/g, '\\"');
+        }
+
+        function createJSON() {
+            createJsonAndBib();
+        }
+
+        function createJsonAndBib() {
+
+            // create new JSON and BibTeX item
+
+            const form = document.getElementById("inputForm");
+            const elements = form.elements;
+            const jsonData = {};
+
+            const entryTypeSelect = document.getElementById("entry_type_select");
+            const entryTypeInput = document.getElementById("entry_type_input");
+
+            let titleBracketValue = true;
+            try {
+                const titleBracket = document.getElementById("title_brace");
+                titleBracketValue = titleBracket.checked;
+            } catch (e) {
+                console.log(e);
+            }
+
+            if (entryTypeInput.value) {
+                jsonData.entry_type = entryTypeInput.value;
+            } else if (entryTypeSelect.value) {
+                jsonData.entry_type = entryTypeSelect.value;
+            }
+
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                if (element.type === "text" && element.value && element.id !== "entry_type_input") {
+                    let value = escapeString(element.value);
+                    if (element.id === "title") {
+                        if (titleBracketValue) {
+                            value = `{${value}}`;
+                        } else {
+                            value = `${value}`;
+                        }
+
+                    }
+                    jsonData[element.id] = value;
+                }
+            }
+
+
+            const jsonOutput = document.getElementById("newJsonOutput");
+            jsonOutput.value = JSON.stringify(jsonData, null, 2);
+
+            // const jsonOuterData = [jsonData];
+            const bibOutput = document.getElementById('newBibOutput');
+
+            // jsonOuterDataを使うと新しいものができる。
+
+            try {
+                const jsonArray = [jsonData];
+                // const jsonInner = JSON.parse(jsonConverted);
+                // const jsonArray = [jsonInner];
+
+                console.log(jsonArray);
+                let bibContent = '';
+
+                jsonArray.forEach(entry => {
+                    const { citation_key, entry_type, ...fields } = entry;
+                    let entryContent = `@${entry_type}{${citation_key},\n`;
+
+                    for (const key in fields) {
+                        entryContent += `  ${key} = {${fields[key]}},\n`;
+                    }
+
+                    entryContent = entryContent.trim().replace(/,$/, '') + '\n}\n\n';
+                    bibContent += entryContent;
+                });
+
+                bibOutput.value = bibContent.trim();
+            } catch (e) {
+                alert('Invalid JSON content');
+            }
+
+        }
+
+
+        function convertNewJsonToBib() {
+            const jsonConverted = document.getElementById("newJsonOutput").value;
+            const bibOutput = document.getElementById('newBibOutput');
+            console.log(jsonConverted);
+
+            try {
+                const jsonInner = JSON.parse(jsonConverted);
+                const jsonArray = [jsonInner];
+
+                console.log(jsonArray);
+                let bibContent = '';
+
+                jsonArray.forEach(entry => {
+                    const { citation_key, entry_type, ...fields } = entry;
+                    let entryContent = `@${entry_type}{${citation_key},\n`;
+
+                    for (const key in fields) {
+                        entryContent += `  ${key} = {${fields[key]}},\n`;
+                    }
+
+                    entryContent = entryContent.trim().replace(/,$/, '') + '\n}\n\n';
+                    bibContent += entryContent;
+                });
+
+                bibOutput.value = bibContent.trim();
+            } catch (e) {
+                alert('Invalid JSON content');
+            }
+
+        }
+
+
+        function copyNewJsonToClipboard() {
+            const jsonOutput = document.getElementById("newJsonOutput");
+            jsonOutput.select();
+            document.execCommand("copy");
+            alert("クリップボードにコピーしました");
+        }
+
+
+        function copyNewBibToClipboard() {
+            const jsonOutput = document.getElementById("newBibOutput");
+            jsonOutput.select();
+            document.execCommand("copy");
+            alert("クリップボードにコピーしました");
+        }
+
+
+
+    </script>
+
+    <script>
+        function showContent(contentId) {
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => content.classList.remove('active'));
+            document.getElementById(contentId).classList.add('active');
+        }
+
+        // Initialize the default view
+        // showContent('bibToJson');
+        showContent('addBibJSON');
+    </script>
+</body>
+
+</html>

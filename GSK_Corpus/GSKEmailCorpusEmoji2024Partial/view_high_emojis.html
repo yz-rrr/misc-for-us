@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>携帯メイル分絵文字上位表示(0717更新)</title>
+    
+    <style type="text/css">
+    body {font-size:10pt;}
+    table {
+        border-collapse: collapse;
+        margin-bottom: 1em;
+    }
+    .left {
+  -webkit-flex:2;
+  flex: 2;
+  margin-right: 30px;
+    }
+    .right {
+  -webkit-flex:3;
+  flex: 3;
+  margin-right:0;
+  }
+    
+    .wrap {
+      display:-webkit-box;
+        display:-ms-flexbox;
+      display:flex;
+    }
+    </style>
+</head>
+<body>
+
+
+<h1>Pythoのコードから</h1>
+HTML for 本文件名合計:
+<h2>本文件名合計</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>8926</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>2</td><td>7912</td><td><img src="./Unicode/（Ｅ７０３）exclamation&question_dc.gif"></td><td>exclamation&question_dc</td></tr>
+<tr><td>3</td><td>7873</td><td><img src="./Unicode/（Ｅ７０６）あせあせ（飛び散る汗）_dc.gif"></td><td>あせあせ（飛び散る汗）_dc</td></tr>
+<tr><td>4</td><td>7115</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>5</td><td>6471</td><td><img src="./Unicode/（Ｅ５Ｂ１）あせあせ（飛び散る汗）_au.gif"></td><td>あせあせ（飛び散る汗）_au</td></tr>
+<tr><td>6</td><td>5287</td><td><img src="./Unicode/（Ｅ６ＦＢ）ひらめき_dc.gif"></td><td>ひらめき_dc</td></tr>
+<tr><td>7</td><td>5027</td><td><img src="./Unicode/（Ｅ６Ｆ５）グッド（上向き矢印）_dc.gif"></td><td>グッド（上向き矢印）_dc</td></tr>
+<tr><td>8</td><td>4623</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>9</td><td>4513</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>10</td><td>4367</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>11</td><td>4020</td><td><img src="./Unicode/（Ｅ７２Ａ）うれしい顔_dc.gif"></td><td>うれしい顔_dc</td></tr>
+<tr><td>12</td><td>3714</td><td><img src="./Unicode/（Ｅ４７１）顔１（うれしいカオ）_動_au.gif"></td><td>顔１（うれしいカオ）_動_au</td></tr>
+<tr><td>13</td><td>3492</td><td><img src="./Unicode/（Ｅ６ＥＣ）黒ハート_dc.gif"></td><td>黒ハート_dc</td></tr>
+<tr><td>14</td><td>2872</td><td><img src="./Unicode/（Ｅ７２２）冷や汗_dc.gif"></td><td>冷や汗_dc</td></tr>
+<tr><td>15</td><td>2764</td><td><img src="./Unicode/（Ｅ７２Ｂ）がまん顔_dc.gif"></td><td>がまん顔_dc</td></tr>
+<tr><td>16</td><td>2736</td><td><img src="./Unicode/（Ｅ７５３）ウッシッシ_dc.gif"></td><td>ウッシッシ_dc</td></tr>
+<tr><td>17</td><td>2604</td><td><img src="./Unicode/（ＥＢ３０）「！！」_au.gif"></td><td>「！！」_au</td></tr>
+<tr><td>18</td><td>2472</td><td><img src="./Unicode/（Ｅ７０Ａ）ー（長音記号２）_dc.gif"></td><td>ー（長音記号２）_dc</td></tr>
+<tr><td>19</td><td>2456</td><td><img src="./Unicode/（Ｅ６Ｆ６）るんるん_dc.gif"></td><td>るんるん_dc</td></tr>
+<tr><td>20</td><td>2425</td><td><img src="./Unicode/（Ｅ７００）バッド（下向き矢印）_dc.gif"></td><td>バッド（下向き矢印）_dc</td></tr>
+</tbody></table>
+
+HTML for sum_body:
+<h2>sum_body</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>8533</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>2</td><td>7615</td><td><img src="./Unicode/（Ｅ７０３）exclamation&question_dc.gif"></td><td>exclamation&question_dc</td></tr>
+<tr><td>3</td><td>7510</td><td><img src="./Unicode/（Ｅ７０６）あせあせ（飛び散る汗）_dc.gif"></td><td>あせあせ（飛び散る汗）_dc</td></tr>
+<tr><td>4</td><td>6774</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>5</td><td>6370</td><td><img src="./Unicode/（Ｅ５Ｂ１）あせあせ（飛び散る汗）_au.gif"></td><td>あせあせ（飛び散る汗）_au</td></tr>
+<tr><td>6</td><td>5104</td><td><img src="./Unicode/（Ｅ６ＦＢ）ひらめき_dc.gif"></td><td>ひらめき_dc</td></tr>
+<tr><td>7</td><td>4863</td><td><img src="./Unicode/（Ｅ６Ｆ５）グッド（上向き矢印）_dc.gif"></td><td>グッド（上向き矢印）_dc</td></tr>
+<tr><td>8</td><td>4492</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>9</td><td>4353</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>10</td><td>4317</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>11</td><td>3657</td><td><img src="./Unicode/（Ｅ７２Ａ）うれしい顔_dc.gif"></td><td>うれしい顔_dc</td></tr>
+<tr><td>12</td><td>3614</td><td><img src="./Unicode/（Ｅ４７１）顔１（うれしいカオ）_動_au.gif"></td><td>顔１（うれしいカオ）_動_au</td></tr>
+<tr><td>13</td><td>3279</td><td><img src="./Unicode/（Ｅ６ＥＣ）黒ハート_dc.gif"></td><td>黒ハート_dc</td></tr>
+<tr><td>14</td><td>2802</td><td><img src="./Unicode/（Ｅ７２２）冷や汗_dc.gif"></td><td>冷や汗_dc</td></tr>
+<tr><td>15</td><td>2701</td><td><img src="./Unicode/（Ｅ７２Ｂ）がまん顔_dc.gif"></td><td>がまん顔_dc</td></tr>
+<tr><td>16</td><td>2669</td><td><img src="./Unicode/（Ｅ７５３）ウッシッシ_dc.gif"></td><td>ウッシッシ_dc</td></tr>
+<tr><td>17</td><td>2527</td><td><img src="./Unicode/（ＥＢ３０）「！！」_au.gif"></td><td>「！！」_au</td></tr>
+<tr><td>18</td><td>2387</td><td><img src="./Unicode/（Ｅ７００）バッド（下向き矢印）_dc.gif"></td><td>バッド（下向き矢印）_dc</td></tr>
+<tr><td>19</td><td>2377</td><td><img src="./Unicode/（Ｅ７０Ａ）ー（長音記号２）_dc.gif"></td><td>ー（長音記号２）_dc</td></tr>
+<tr><td>20</td><td>2372</td><td><img src="./Unicode/（Ｅ６Ｆ６）るんるん_dc.gif"></td><td>るんるん_dc</td></tr>
+</tbody></table>
+
+HTML for 本文_文末部:
+<h2>本文_文末部</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>8127</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>2</td><td>7340</td><td><img src="./Unicode/（Ｅ７０３）exclamation&question_dc.gif"></td><td>exclamation&question_dc</td></tr>
+<tr><td>3</td><td>7266</td><td><img src="./Unicode/（Ｅ７０６）あせあせ（飛び散る汗）_dc.gif"></td><td>あせあせ（飛び散る汗）_dc</td></tr>
+<tr><td>4</td><td>6425</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>5</td><td>6118</td><td><img src="./Unicode/（Ｅ５Ｂ１）あせあせ（飛び散る汗）_au.gif"></td><td>あせあせ（飛び散る汗）_au</td></tr>
+<tr><td>6</td><td>4898</td><td><img src="./Unicode/（Ｅ６ＦＢ）ひらめき_dc.gif"></td><td>ひらめき_dc</td></tr>
+<tr><td>7</td><td>4652</td><td><img src="./Unicode/（Ｅ６Ｆ５）グッド（上向き矢印）_dc.gif"></td><td>グッド（上向き矢印）_dc</td></tr>
+<tr><td>8</td><td>4158</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>9</td><td>4114</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>10</td><td>3959</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>11</td><td>3508</td><td><img src="./Unicode/（Ｅ７２Ａ）うれしい顔_dc.gif"></td><td>うれしい顔_dc</td></tr>
+<tr><td>12</td><td>3478</td><td><img src="./Unicode/（Ｅ４７１）顔１（うれしいカオ）_動_au.gif"></td><td>顔１（うれしいカオ）_動_au</td></tr>
+<tr><td>13</td><td>3015</td><td><img src="./Unicode/（Ｅ６ＥＣ）黒ハート_dc.gif"></td><td>黒ハート_dc</td></tr>
+<tr><td>14</td><td>2665</td><td><img src="./Unicode/（Ｅ７２２）冷や汗_dc.gif"></td><td>冷や汗_dc</td></tr>
+<tr><td>15</td><td>2576</td><td><img src="./Unicode/（Ｅ７２Ｂ）がまん顔_dc.gif"></td><td>がまん顔_dc</td></tr>
+<tr><td>16</td><td>2413</td><td><img src="./Unicode/（Ｅ７５３）ウッシッシ_dc.gif"></td><td>ウッシッシ_dc</td></tr>
+<tr><td>17</td><td>2326</td><td><img src="./Unicode/（Ｅ７００）バッド（下向き矢印）_dc.gif"></td><td>バッド（下向き矢印）_dc</td></tr>
+<tr><td>18</td><td>2287</td><td><img src="./Unicode/（Ｅ６Ｆ６）るんるん_dc.gif"></td><td>るんるん_dc</td></tr>
+<tr><td>19</td><td>2286</td><td><img src="./Unicode/（ＥＢ３０）「！！」_au.gif"></td><td>「！！」_au</td></tr>
+<tr><td>20</td><td>2215</td><td><img src="./Unicode/（Ｅ７２７）指でOK_dc.gif"></td><td>指でOK_dc</td></tr>
+</tbody></table>
+
+HTML for 本文_文頭部:
+<h2>本文_文頭部</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>109</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>2</td><td>50</td><td><img src="./Unicode/（Ｅ７０Ｂ）決定_dc.gif"></td><td>決定_dc</td></tr>
+<tr><td>3</td><td>49</td><td><img src="./Unicode/（Ｅ６Ｄ３）メール_dc.gif"></td><td>メール_dc</td></tr>
+<tr><td>4</td><td>43</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>5</td><td>30</td><td><img src="./Unicode/（Ｅ５２１）封筒_au.gif"></td><td>封筒_au</td></tr>
+<tr><td>6</td><td>27</td><td><img src="./Unicode/（Ｅ６６３）家_dc.gif"></td><td>家_dc</td></tr>
+<tr><td>7</td><td>19</td><td><img src="./Unicode/（Ｅ６４０）雨_dc.gif"></td><td>雨_dc</td></tr>
+<tr><td>8</td><td>18</td><td><img src="./Unicode/（Ｅ６Ｅ２）１_dc.gif"></td><td>１_dc</td></tr>
+<tr><td>9</td><td>15</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>10</td><td>15</td><td><img src="./Unicode/（Ｅ７３Ｅ）学校_dc.gif"></td><td>学校_dc</td></tr>
+<tr><td>11</td><td>15</td><td><img src="./Unicode/（Ｅ６Ｅ３）２_dc.gif"></td><td>２_dc</td></tr>
+<tr><td>12</td><td>14</td><td><img src="./Unicode/（Ｅ７１７）ラブレター_dc.gif"></td><td>ラブレター_dc</td></tr>
+<tr><td>13</td><td>13</td><td><img src="./Unicode/（ＥＡＡ５）ハート（トランプ）_au.gif"></td><td>ハート（トランプ）_au</td></tr>
+<tr><td>14</td><td>13</td><td><img src="./Unicode/（Ｅ７３Ｂ）満室・満席・満車_dc.gif"></td><td>満室・満席・満車_dc</td></tr>
+<tr><td>15</td><td>12</td><td><img src="./Unicode/（Ｅ６８８）携帯電話_dc.gif"></td><td>携帯電話_dc</td></tr>
+<tr><td>16</td><td>11</td><td><img src="./Unicode/（Ｅ６５Ｅ）車（セダン）_dc.gif"></td><td>車（セダン）_dc</td></tr>
+<tr><td>17</td><td>11</td><td><img src="./Unicode/（Ｅ６Ｅ５）４_dc.gif"></td><td>４_dc</td></tr>
+<tr><td>18</td><td>11</td><td><img src="./Unicode/（Ｅ５９１）封筒２_au.gif"></td><td>封筒２_au</td></tr>
+<tr><td>19</td><td>10</td><td><img src="./Unicode/（Ｅ６５Ｂ）電車_dc.gif"></td><td>電車_dc</td></tr>
+<tr><td>20</td><td>10</td><td><img src="./Unicode/（Ｅ６Ｅ４）３_dc.gif"></td><td>３_dc</td></tr>
+</tbody></table>
+
+HTML for 本文_文内部:
+<h2>本文_文内部</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>454</td><td><img src="./Unicode/（Ｅ７０Ａ）ー（長音記号２）_dc.gif"></td><td>ー（長音記号２）_dc</td></tr>
+<tr><td>2</td><td>382</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>3</td><td>335</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>4</td><td>323</td><td><img src="./Unicode/（Ｅ６Ｄ３）メール_dc.gif"></td><td>メール_dc</td></tr>
+<tr><td>5</td><td>289</td><td><img src="./Unicode/（ＥＢ３１）くるり_au.gif"></td><td>くるり_au</td></tr>
+<tr><td>6</td><td>282</td><td><img src="./Unicode/（Ｅ７０９）ー（長音記号１）_dc.gif"></td><td>ー（長音記号１）_dc</td></tr>
+<tr><td>7</td><td>276</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>8</td><td>268</td><td><img src="./Unicode/（Ｅ７０３）exclamation&question_dc.gif"></td><td>exclamation&question_dc</td></tr>
+<tr><td>9</td><td>259</td><td><img src="./Unicode/（Ｅ７２Ｃ）猫2_dc.gif"></td><td>猫2_dc</td></tr>
+<tr><td>10</td><td>256</td><td><img src="./Unicode/（Ｅ６ＥＣ）黒ハート_dc.gif"></td><td>黒ハート_dc</td></tr>
+<tr><td>11</td><td>252</td><td><img src="./Unicode/（Ｅ７５３）ウッシッシ_dc.gif"></td><td>ウッシッシ_dc</td></tr>
+<tr><td>12</td><td>244</td><td><img src="./Unicode/（Ｅ５Ｂ１）あせあせ（飛び散る汗）_au.gif"></td><td>あせあせ（飛び散る汗）_au</td></tr>
+<tr><td>13</td><td>240</td><td><img src="./Unicode/（Ｅ７０６）あせあせ（飛び散る汗）_dc.gif"></td><td>あせあせ（飛び散る汗）_dc</td></tr>
+<tr><td>14</td><td>232</td><td><img src="./Unicode/（ＥＢ３０）「！！」_au.gif"></td><td>「！！」_au</td></tr>
+<tr><td>15</td><td>230</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>16</td><td>213</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>17</td><td>208</td><td><img src="./Unicode/（Ｅ６Ｆ５）グッド（上向き矢印）_dc.gif"></td><td>グッド（上向き矢印）_dc</td></tr>
+<tr><td>18</td><td>193</td><td><img src="./Unicode/（Ｅ６ＦＢ）ひらめき_dc.gif"></td><td>ひらめき_dc</td></tr>
+<tr><td>19</td><td>192</td><td><img src="./Unicode/（ＥＢ２Ｆ）「！？」_au.gif"></td><td>「！？」_au</td></tr>
+<tr><td>20</td><td>188</td><td><img src="./Unicode/（Ｅ６９５）手（パー）_dc.gif"></td><td>手（パー）_dc</td></tr>
+</tbody></table>
+
+HTML for 本文_文全体:
+<h2>本文_文全体</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>55</td><td><img src="./Unicode/（Ｅ７０Ｂ）決定_dc.gif"></td><td>決定_dc</td></tr>
+<tr><td>2</td><td>30</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>3</td><td>20</td><td><img src="./Unicode/（Ｅ７２７）指でOK_dc.gif"></td><td>指でOK_dc</td></tr>
+<tr><td>4</td><td>14</td><td><img src="./Unicode/（Ｅ７５７）げっそり_dc.gif"></td><td>げっそり_dc</td></tr>
+<tr><td>5</td><td>14</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>6</td><td>13</td><td><img src="./Unicode/（Ｅ４ＤＢ）猫_au.gif"></td><td>猫_au</td></tr>
+<tr><td>7</td><td>12</td><td><img src="./Unicode/（Ｅ７４１）クローバー_dc.gif"></td><td>クローバー_dc</td></tr>
+<tr><td>8</td><td>12</td><td><img src="./Unicode/（ＥＢ７Ｄ）双葉_au.gif"></td><td>双葉_au</td></tr>
+<tr><td>9</td><td>12</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>10</td><td>12</td><td><img src="./Unicode/（Ｅ６４４）霧_dc.gif"></td><td>霧_dc</td></tr>
+<tr><td>11</td><td>11</td><td><img src="./Unicode/（Ｅ６ＦＢ）ひらめき_dc.gif"></td><td>ひらめき_dc</td></tr>
+<tr><td>12</td><td>10</td><td><img src="./Unicode/（Ｅ６Ａ４）クリスマス_dc.gif"></td><td>クリスマス_dc</td></tr>
+<tr><td>13</td><td>8</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>14</td><td>8</td><td><img src="./Unicode/（ＥＢ２Ｆ）「！？」_au.gif"></td><td>「！？」_au</td></tr>
+<tr><td>15</td><td>8</td><td><img src="./Unicode/（Ｅ６７２）ビール_dc.gif"></td><td>ビール_dc</td></tr>
+<tr><td>16</td><td>7</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>17</td><td>7</td><td><img src="./Unicode/（Ｅ７０８）ダッシュ（走り出すさま）_dc.gif"></td><td>ダッシュ（走り出すさま）_dc</td></tr>
+<tr><td>18</td><td>7</td><td><img src="./Unicode/（Ｅ５ＡＤ）決定_au.gif"></td><td>決定_au</td></tr>
+<tr><td>19</td><td>6</td><td><img src="./Unicode/（Ｅ５９５）ハート_au.gif"></td><td>ハート_au</td></tr>
+<tr><td>20</td><td>6</td><td><img src="./Unicode/（Ｅ５ＢＥ）八分音符_au.gif"></td><td>八分音符_au</td></tr>
+</tbody></table>
+
+HTML for body_b0:
+<h2>body_b0</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>49</td><td><img src="./Unicode/（Ｅ６Ｄ３）メール_dc.gif"></td><td>メール_dc</td></tr>
+<tr><td>2</td><td>48</td><td><img src="./Unicode/（Ｅ７０Ｂ）決定_dc.gif"></td><td>決定_dc</td></tr>
+<tr><td>3</td><td>37</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>4</td><td>30</td><td><img src="./Unicode/（Ｅ５２１）封筒_au.gif"></td><td>封筒_au</td></tr>
+<tr><td>5</td><td>27</td><td><img src="./Unicode/（Ｅ６６３）家_dc.gif"></td><td>家_dc</td></tr>
+<tr><td>6</td><td>19</td><td><img src="./Unicode/（Ｅ６４０）雨_dc.gif"></td><td>雨_dc</td></tr>
+<tr><td>7</td><td>16</td><td><img src="./Unicode/（Ｅ６Ｅ２）１_dc.gif"></td><td>１_dc</td></tr>
+<tr><td>8</td><td>15</td><td><img src="./Unicode/（Ｅ７３Ｅ）学校_dc.gif"></td><td>学校_dc</td></tr>
+<tr><td>9</td><td>14</td><td><img src="./Unicode/（Ｅ７１７）ラブレター_dc.gif"></td><td>ラブレター_dc</td></tr>
+<tr><td>10</td><td>13</td><td><img src="./Unicode/（ＥＡＡ５）ハート（トランプ）_au.gif"></td><td>ハート（トランプ）_au</td></tr>
+<tr><td>11</td><td>13</td><td><img src="./Unicode/（Ｅ７３Ｂ）満室・満席・満車_dc.gif"></td><td>満室・満席・満車_dc</td></tr>
+<tr><td>12</td><td>12</td><td><img src="./Unicode/（Ｅ６８８）携帯電話_dc.gif"></td><td>携帯電話_dc</td></tr>
+<tr><td>13</td><td>11</td><td><img src="./Unicode/（Ｅ６Ｅ３）２_dc.gif"></td><td>２_dc</td></tr>
+<tr><td>14</td><td>11</td><td><img src="./Unicode/（Ｅ５９１）封筒２_au.gif"></td><td>封筒２_au</td></tr>
+<tr><td>15</td><td>10</td><td><img src="./Unicode/（Ｅ６Ｅ４）３_dc.gif"></td><td>３_dc</td></tr>
+<tr><td>16</td><td>10</td><td><img src="./Unicode/（Ｅ６５Ｂ）電車_dc.gif"></td><td>電車_dc</td></tr>
+<tr><td>17</td><td>9</td><td><img src="./Unicode/（Ｅ４ＡＢ）家_au.gif"></td><td>家_au</td></tr>
+<tr><td>18</td><td>9</td><td><img src="./Unicode/（Ｅ６Ｅ５）４_dc.gif"></td><td>４_dc</td></tr>
+<tr><td>19</td><td>9</td><td><img src="./Unicode/（Ｅ６５Ｅ）車（セダン）_dc.gif"></td><td>車（セダン）_dc</td></tr>
+<tr><td>20</td><td>9</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+</tbody></table>
+
+HTML for body_e1:
+<h2>body_e1</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>2828</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>2</td><td>2276</td><td><img src="./Unicode/（Ｅ７２Ａ）うれしい顔_dc.gif"></td><td>うれしい顔_dc</td></tr>
+<tr><td>3</td><td>1854</td><td><img src="./Unicode/（Ｅ７０３）exclamation&question_dc.gif"></td><td>exclamation&question_dc</td></tr>
+<tr><td>4</td><td>1821</td><td><img src="./Unicode/（Ｅ６Ｆ５）グッド（上向き矢印）_dc.gif"></td><td>グッド（上向き矢印）_dc</td></tr>
+<tr><td>5</td><td>1522</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>6</td><td>1512</td><td><img src="./Unicode/（Ｅ７０Ａ）ー（長音記号２）_dc.gif"></td><td>ー（長音記号２）_dc</td></tr>
+<tr><td>7</td><td>1248</td><td><img src="./Unicode/（Ｅ７５３）ウッシッシ_dc.gif"></td><td>ウッシッシ_dc</td></tr>
+<tr><td>8</td><td>1240</td><td><img src="./Unicode/（Ｅ４７１）顔１（うれしいカオ）_動_au.gif"></td><td>顔１（うれしいカオ）_動_au</td></tr>
+<tr><td>9</td><td>1210</td><td><img src="./Unicode/（Ｅ７２Ｂ）がまん顔_dc.gif"></td><td>がまん顔_dc</td></tr>
+<tr><td>10</td><td>1126</td><td><img src="./Unicode/（Ｅ５Ｂ１）あせあせ（飛び散る汗）_au.gif"></td><td>あせあせ（飛び散る汗）_au</td></tr>
+<tr><td>11</td><td>1061</td><td><img src="./Unicode/（Ｅ７０６）あせあせ（飛び散る汗）_dc.gif"></td><td>あせあせ（飛び散る汗）_dc</td></tr>
+<tr><td>12</td><td>1004</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>13</td><td>904</td><td><img src="./Unicode/（Ｅ７２９）ウィンク_dc.gif"></td><td>ウィンク_dc</td></tr>
+<tr><td>14</td><td>786</td><td><img src="./Unicode/（Ｅ７５７）げっそり_dc.gif"></td><td>げっそり_dc</td></tr>
+<tr><td>15</td><td>773</td><td><img src="./Unicode/（Ｅ７０９）ー（長音記号１）_dc.gif"></td><td>ー（長音記号１）_dc</td></tr>
+<tr><td>16</td><td>658</td><td><img src="./Unicode/（ＥＢ３１）くるり_au.gif"></td><td>くるり_au</td></tr>
+<tr><td>17</td><td>641</td><td><img src="./Unicode/（Ｅ６Ａ２）猫_dc.gif"></td><td>猫_dc</td></tr>
+<tr><td>18</td><td>640</td><td><img src="./Unicode/（ＥＡＣ５）てれてれ_動_au.gif"></td><td>てれてれ_動_au</td></tr>
+<tr><td>19</td><td>620</td><td><img src="./Unicode/（Ｅ７２Ｃ）猫2_dc.gif"></td><td>猫2_dc</td></tr>
+<tr><td>20</td><td>611</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+</tbody></table>
+
+​
+​
+​HTML for 本文件名合計:
+<h2>本文件名合計</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>8926</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>2</td><td>7912</td><td><img src="./Unicode/（Ｅ７０３）exclamation&question_dc.gif"></td><td>exclamation&question_dc</td></tr>
+<tr><td>3</td><td>7873</td><td><img src="./Unicode/（Ｅ７０６）あせあせ（飛び散る汗）_dc.gif"></td><td>あせあせ（飛び散る汗）_dc</td></tr>
+<tr><td>4</td><td>7115</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>5</td><td>6471</td><td><img src="./Unicode/（Ｅ５Ｂ１）あせあせ（飛び散る汗）_au.gif"></td><td>あせあせ（飛び散る汗）_au</td></tr>
+<tr><td>6</td><td>5287</td><td><img src="./Unicode/（Ｅ６ＦＢ）ひらめき_dc.gif"></td><td>ひらめき_dc</td></tr>
+<tr><td>7</td><td>5027</td><td><img src="./Unicode/（Ｅ６Ｆ５）グッド（上向き矢印）_dc.gif"></td><td>グッド（上向き矢印）_dc</td></tr>
+<tr><td>8</td><td>4623</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>9</td><td>4513</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>10</td><td>4367</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>11</td><td>4020</td><td><img src="./Unicode/（Ｅ７２Ａ）うれしい顔_dc.gif"></td><td>うれしい顔_dc</td></tr>
+<tr><td>12</td><td>3714</td><td><img src="./Unicode/（Ｅ４７１）顔１（うれしいカオ）_動_au.gif"></td><td>顔１（うれしいカオ）_動_au</td></tr>
+<tr><td>13</td><td>3492</td><td><img src="./Unicode/（Ｅ６ＥＣ）黒ハート_dc.gif"></td><td>黒ハート_dc</td></tr>
+<tr><td>14</td><td>2872</td><td><img src="./Unicode/（Ｅ７２２）冷や汗_dc.gif"></td><td>冷や汗_dc</td></tr>
+<tr><td>15</td><td>2764</td><td><img src="./Unicode/（Ｅ７２Ｂ）がまん顔_dc.gif"></td><td>がまん顔_dc</td></tr>
+<tr><td>16</td><td>2736</td><td><img src="./Unicode/（Ｅ７５３）ウッシッシ_dc.gif"></td><td>ウッシッシ_dc</td></tr>
+<tr><td>17</td><td>2604</td><td><img src="./Unicode/（ＥＢ３０）「！！」_au.gif"></td><td>「！！」_au</td></tr>
+<tr><td>18</td><td>2472</td><td><img src="./Unicode/（Ｅ７０Ａ）ー（長音記号２）_dc.gif"></td><td>ー（長音記号２）_dc</td></tr>
+<tr><td>19</td><td>2456</td><td><img src="./Unicode/（Ｅ６Ｆ６）るんるん_dc.gif"></td><td>るんるん_dc</td></tr>
+<tr><td>20</td><td>2425</td><td><img src="./Unicode/（Ｅ７００）バッド（下向き矢印）_dc.gif"></td><td>バッド（下向き矢印）_dc</td></tr>
+</tbody></table>
+
+HTML for sum_body:
+<h2>sum_body</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>8533</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>2</td><td>7615</td><td><img src="./Unicode/（Ｅ７０３）exclamation&question_dc.gif"></td><td>exclamation&question_dc</td></tr>
+<tr><td>3</td><td>7510</td><td><img src="./Unicode/（Ｅ７０６）あせあせ（飛び散る汗）_dc.gif"></td><td>あせあせ（飛び散る汗）_dc</td></tr>
+<tr><td>4</td><td>6774</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>5</td><td>6370</td><td><img src="./Unicode/（Ｅ５Ｂ１）あせあせ（飛び散る汗）_au.gif"></td><td>あせあせ（飛び散る汗）_au</td></tr>
+<tr><td>6</td><td>5104</td><td><img src="./Unicode/（Ｅ６ＦＢ）ひらめき_dc.gif"></td><td>ひらめき_dc</td></tr>
+<tr><td>7</td><td>4863</td><td><img src="./Unicode/（Ｅ６Ｆ５）グッド（上向き矢印）_dc.gif"></td><td>グッド（上向き矢印）_dc</td></tr>
+<tr><td>8</td><td>4492</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>9</td><td>4353</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>10</td><td>4317</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>11</td><td>3657</td><td><img src="./Unicode/（Ｅ７２Ａ）うれしい顔_dc.gif"></td><td>うれしい顔_dc</td></tr>
+<tr><td>12</td><td>3614</td><td><img src="./Unicode/（Ｅ４７１）顔１（うれしいカオ）_動_au.gif"></td><td>顔１（うれしいカオ）_動_au</td></tr>
+<tr><td>13</td><td>3279</td><td><img src="./Unicode/（Ｅ６ＥＣ）黒ハート_dc.gif"></td><td>黒ハート_dc</td></tr>
+<tr><td>14</td><td>2802</td><td><img src="./Unicode/（Ｅ７２２）冷や汗_dc.gif"></td><td>冷や汗_dc</td></tr>
+<tr><td>15</td><td>2701</td><td><img src="./Unicode/（Ｅ７２Ｂ）がまん顔_dc.gif"></td><td>がまん顔_dc</td></tr>
+<tr><td>16</td><td>2669</td><td><img src="./Unicode/（Ｅ７５３）ウッシッシ_dc.gif"></td><td>ウッシッシ_dc</td></tr>
+<tr><td>17</td><td>2527</td><td><img src="./Unicode/（ＥＢ３０）「！！」_au.gif"></td><td>「！！」_au</td></tr>
+<tr><td>18</td><td>2387</td><td><img src="./Unicode/（Ｅ７００）バッド（下向き矢印）_dc.gif"></td><td>バッド（下向き矢印）_dc</td></tr>
+<tr><td>19</td><td>2377</td><td><img src="./Unicode/（Ｅ７０Ａ）ー（長音記号２）_dc.gif"></td><td>ー（長音記号２）_dc</td></tr>
+<tr><td>20</td><td>2372</td><td><img src="./Unicode/（Ｅ６Ｆ６）るんるん_dc.gif"></td><td>るんるん_dc</td></tr>
+</tbody></table>
+
+HTML for 本文_文末部:
+<h2>本文_文末部</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>8127</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>2</td><td>7340</td><td><img src="./Unicode/（Ｅ７０３）exclamation&question_dc.gif"></td><td>exclamation&question_dc</td></tr>
+<tr><td>3</td><td>7266</td><td><img src="./Unicode/（Ｅ７０６）あせあせ（飛び散る汗）_dc.gif"></td><td>あせあせ（飛び散る汗）_dc</td></tr>
+<tr><td>4</td><td>6425</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>5</td><td>6118</td><td><img src="./Unicode/（Ｅ５Ｂ１）あせあせ（飛び散る汗）_au.gif"></td><td>あせあせ（飛び散る汗）_au</td></tr>
+<tr><td>6</td><td>4898</td><td><img src="./Unicode/（Ｅ６ＦＢ）ひらめき_dc.gif"></td><td>ひらめき_dc</td></tr>
+<tr><td>7</td><td>4652</td><td><img src="./Unicode/（Ｅ６Ｆ５）グッド（上向き矢印）_dc.gif"></td><td>グッド（上向き矢印）_dc</td></tr>
+<tr><td>8</td><td>4158</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>9</td><td>4114</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>10</td><td>3959</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>11</td><td>3508</td><td><img src="./Unicode/（Ｅ７２Ａ）うれしい顔_dc.gif"></td><td>うれしい顔_dc</td></tr>
+<tr><td>12</td><td>3478</td><td><img src="./Unicode/（Ｅ４７１）顔１（うれしいカオ）_動_au.gif"></td><td>顔１（うれしいカオ）_動_au</td></tr>
+<tr><td>13</td><td>3015</td><td><img src="./Unicode/（Ｅ６ＥＣ）黒ハート_dc.gif"></td><td>黒ハート_dc</td></tr>
+<tr><td>14</td><td>2665</td><td><img src="./Unicode/（Ｅ７２２）冷や汗_dc.gif"></td><td>冷や汗_dc</td></tr>
+<tr><td>15</td><td>2576</td><td><img src="./Unicode/（Ｅ７２Ｂ）がまん顔_dc.gif"></td><td>がまん顔_dc</td></tr>
+<tr><td>16</td><td>2413</td><td><img src="./Unicode/（Ｅ７５３）ウッシッシ_dc.gif"></td><td>ウッシッシ_dc</td></tr>
+<tr><td>17</td><td>2326</td><td><img src="./Unicode/（Ｅ７００）バッド（下向き矢印）_dc.gif"></td><td>バッド（下向き矢印）_dc</td></tr>
+<tr><td>18</td><td>2287</td><td><img src="./Unicode/（Ｅ６Ｆ６）るんるん_dc.gif"></td><td>るんるん_dc</td></tr>
+<tr><td>19</td><td>2286</td><td><img src="./Unicode/（ＥＢ３０）「！！」_au.gif"></td><td>「！！」_au</td></tr>
+<tr><td>20</td><td>2215</td><td><img src="./Unicode/（Ｅ７２７）指でOK_dc.gif"></td><td>指でOK_dc</td></tr>
+</tbody></table>
+
+HTML for 本文_文頭部:
+<h2>本文_文頭部</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>109</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>2</td><td>50</td><td><img src="./Unicode/（Ｅ７０Ｂ）決定_dc.gif"></td><td>決定_dc</td></tr>
+<tr><td>3</td><td>49</td><td><img src="./Unicode/（Ｅ６Ｄ３）メール_dc.gif"></td><td>メール_dc</td></tr>
+<tr><td>4</td><td>43</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>5</td><td>30</td><td><img src="./Unicode/（Ｅ５２１）封筒_au.gif"></td><td>封筒_au</td></tr>
+<tr><td>6</td><td>27</td><td><img src="./Unicode/（Ｅ６６３）家_dc.gif"></td><td>家_dc</td></tr>
+<tr><td>7</td><td>19</td><td><img src="./Unicode/（Ｅ６４０）雨_dc.gif"></td><td>雨_dc</td></tr>
+<tr><td>8</td><td>18</td><td><img src="./Unicode/（Ｅ６Ｅ２）１_dc.gif"></td><td>１_dc</td></tr>
+<tr><td>9</td><td>15</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>10</td><td>15</td><td><img src="./Unicode/（Ｅ７３Ｅ）学校_dc.gif"></td><td>学校_dc</td></tr>
+<tr><td>11</td><td>15</td><td><img src="./Unicode/（Ｅ６Ｅ３）２_dc.gif"></td><td>２_dc</td></tr>
+<tr><td>12</td><td>14</td><td><img src="./Unicode/（Ｅ７１７）ラブレター_dc.gif"></td><td>ラブレター_dc</td></tr>
+<tr><td>13</td><td>13</td><td><img src="./Unicode/（ＥＡＡ５）ハート（トランプ）_au.gif"></td><td>ハート（トランプ）_au</td></tr>
+<tr><td>14</td><td>13</td><td><img src="./Unicode/（Ｅ７３Ｂ）満室・満席・満車_dc.gif"></td><td>満室・満席・満車_dc</td></tr>
+<tr><td>15</td><td>12</td><td><img src="./Unicode/（Ｅ６８８）携帯電話_dc.gif"></td><td>携帯電話_dc</td></tr>
+<tr><td>16</td><td>11</td><td><img src="./Unicode/（Ｅ６５Ｅ）車（セダン）_dc.gif"></td><td>車（セダン）_dc</td></tr>
+<tr><td>17</td><td>11</td><td><img src="./Unicode/（Ｅ６Ｅ５）４_dc.gif"></td><td>４_dc</td></tr>
+<tr><td>18</td><td>11</td><td><img src="./Unicode/（Ｅ５９１）封筒２_au.gif"></td><td>封筒２_au</td></tr>
+<tr><td>19</td><td>10</td><td><img src="./Unicode/（Ｅ６５Ｂ）電車_dc.gif"></td><td>電車_dc</td></tr>
+<tr><td>20</td><td>10</td><td><img src="./Unicode/（Ｅ６Ｅ４）３_dc.gif"></td><td>３_dc</td></tr>
+</tbody></table>
+
+HTML for 本文_文内部:
+<h2>本文_文内部</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>454</td><td><img src="./Unicode/（Ｅ７０Ａ）ー（長音記号２）_dc.gif"></td><td>ー（長音記号２）_dc</td></tr>
+<tr><td>2</td><td>382</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>3</td><td>335</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>4</td><td>323</td><td><img src="./Unicode/（Ｅ６Ｄ３）メール_dc.gif"></td><td>メール_dc</td></tr>
+<tr><td>5</td><td>289</td><td><img src="./Unicode/（ＥＢ３１）くるり_au.gif"></td><td>くるり_au</td></tr>
+<tr><td>6</td><td>282</td><td><img src="./Unicode/（Ｅ７０９）ー（長音記号１）_dc.gif"></td><td>ー（長音記号１）_dc</td></tr>
+<tr><td>7</td><td>276</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>8</td><td>268</td><td><img src="./Unicode/（Ｅ７０３）exclamation&question_dc.gif"></td><td>exclamation&question_dc</td></tr>
+<tr><td>9</td><td>259</td><td><img src="./Unicode/（Ｅ７２Ｃ）猫2_dc.gif"></td><td>猫2_dc</td></tr>
+<tr><td>10</td><td>256</td><td><img src="./Unicode/（Ｅ６ＥＣ）黒ハート_dc.gif"></td><td>黒ハート_dc</td></tr>
+<tr><td>11</td><td>252</td><td><img src="./Unicode/（Ｅ７５３）ウッシッシ_dc.gif"></td><td>ウッシッシ_dc</td></tr>
+<tr><td>12</td><td>244</td><td><img src="./Unicode/（Ｅ５Ｂ１）あせあせ（飛び散る汗）_au.gif"></td><td>あせあせ（飛び散る汗）_au</td></tr>
+<tr><td>13</td><td>240</td><td><img src="./Unicode/（Ｅ７０６）あせあせ（飛び散る汗）_dc.gif"></td><td>あせあせ（飛び散る汗）_dc</td></tr>
+<tr><td>14</td><td>232</td><td><img src="./Unicode/（ＥＢ３０）「！！」_au.gif"></td><td>「！！」_au</td></tr>
+<tr><td>15</td><td>230</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>16</td><td>213</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>17</td><td>208</td><td><img src="./Unicode/（Ｅ６Ｆ５）グッド（上向き矢印）_dc.gif"></td><td>グッド（上向き矢印）_dc</td></tr>
+<tr><td>18</td><td>193</td><td><img src="./Unicode/（Ｅ６ＦＢ）ひらめき_dc.gif"></td><td>ひらめき_dc</td></tr>
+<tr><td>19</td><td>192</td><td><img src="./Unicode/（ＥＢ２Ｆ）「！？」_au.gif"></td><td>「！？」_au</td></tr>
+<tr><td>20</td><td>188</td><td><img src="./Unicode/（Ｅ６９５）手（パー）_dc.gif"></td><td>手（パー）_dc</td></tr>
+</tbody></table>
+
+HTML for 本文_文全体:
+<h2>本文_文全体</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>55</td><td><img src="./Unicode/（Ｅ７０Ｂ）決定_dc.gif"></td><td>決定_dc</td></tr>
+<tr><td>2</td><td>30</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>3</td><td>20</td><td><img src="./Unicode/（Ｅ７２７）指でOK_dc.gif"></td><td>指でOK_dc</td></tr>
+<tr><td>4</td><td>14</td><td><img src="./Unicode/（Ｅ７５７）げっそり_dc.gif"></td><td>げっそり_dc</td></tr>
+<tr><td>5</td><td>14</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>6</td><td>13</td><td><img src="./Unicode/（Ｅ４ＤＢ）猫_au.gif"></td><td>猫_au</td></tr>
+<tr><td>7</td><td>12</td><td><img src="./Unicode/（Ｅ７４１）クローバー_dc.gif"></td><td>クローバー_dc</td></tr>
+<tr><td>8</td><td>12</td><td><img src="./Unicode/（ＥＢ７Ｄ）双葉_au.gif"></td><td>双葉_au</td></tr>
+<tr><td>9</td><td>12</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>10</td><td>12</td><td><img src="./Unicode/（Ｅ６４４）霧_dc.gif"></td><td>霧_dc</td></tr>
+<tr><td>11</td><td>11</td><td><img src="./Unicode/（Ｅ６ＦＢ）ひらめき_dc.gif"></td><td>ひらめき_dc</td></tr>
+<tr><td>12</td><td>10</td><td><img src="./Unicode/（Ｅ６Ａ４）クリスマス_dc.gif"></td><td>クリスマス_dc</td></tr>
+<tr><td>13</td><td>8</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>14</td><td>8</td><td><img src="./Unicode/（ＥＢ２Ｆ）「！？」_au.gif"></td><td>「！？」_au</td></tr>
+<tr><td>15</td><td>8</td><td><img src="./Unicode/（Ｅ６７２）ビール_dc.gif"></td><td>ビール_dc</td></tr>
+<tr><td>16</td><td>7</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>17</td><td>7</td><td><img src="./Unicode/（Ｅ７０８）ダッシュ（走り出すさま）_dc.gif"></td><td>ダッシュ（走り出すさま）_dc</td></tr>
+<tr><td>18</td><td>7</td><td><img src="./Unicode/（Ｅ５ＡＤ）決定_au.gif"></td><td>決定_au</td></tr>
+<tr><td>19</td><td>6</td><td><img src="./Unicode/（Ｅ５９５）ハート_au.gif"></td><td>ハート_au</td></tr>
+<tr><td>20</td><td>6</td><td><img src="./Unicode/（Ｅ５ＢＥ）八分音符_au.gif"></td><td>八分音符_au</td></tr>
+</tbody></table>
+
+HTML for body_b0:
+<h2>body_b0</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>49</td><td><img src="./Unicode/（Ｅ６Ｄ３）メール_dc.gif"></td><td>メール_dc</td></tr>
+<tr><td>2</td><td>48</td><td><img src="./Unicode/（Ｅ７０Ｂ）決定_dc.gif"></td><td>決定_dc</td></tr>
+<tr><td>3</td><td>37</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>4</td><td>30</td><td><img src="./Unicode/（Ｅ５２１）封筒_au.gif"></td><td>封筒_au</td></tr>
+<tr><td>5</td><td>27</td><td><img src="./Unicode/（Ｅ６６３）家_dc.gif"></td><td>家_dc</td></tr>
+<tr><td>6</td><td>19</td><td><img src="./Unicode/（Ｅ６４０）雨_dc.gif"></td><td>雨_dc</td></tr>
+<tr><td>7</td><td>16</td><td><img src="./Unicode/（Ｅ６Ｅ２）１_dc.gif"></td><td>１_dc</td></tr>
+<tr><td>8</td><td>15</td><td><img src="./Unicode/（Ｅ７３Ｅ）学校_dc.gif"></td><td>学校_dc</td></tr>
+<tr><td>9</td><td>14</td><td><img src="./Unicode/（Ｅ７１７）ラブレター_dc.gif"></td><td>ラブレター_dc</td></tr>
+<tr><td>10</td><td>13</td><td><img src="./Unicode/（ＥＡＡ５）ハート（トランプ）_au.gif"></td><td>ハート（トランプ）_au</td></tr>
+<tr><td>11</td><td>13</td><td><img src="./Unicode/（Ｅ７３Ｂ）満室・満席・満車_dc.gif"></td><td>満室・満席・満車_dc</td></tr>
+<tr><td>12</td><td>12</td><td><img src="./Unicode/（Ｅ６８８）携帯電話_dc.gif"></td><td>携帯電話_dc</td></tr>
+<tr><td>13</td><td>11</td><td><img src="./Unicode/（Ｅ６Ｅ３）２_dc.gif"></td><td>２_dc</td></tr>
+<tr><td>14</td><td>11</td><td><img src="./Unicode/（Ｅ５９１）封筒２_au.gif"></td><td>封筒２_au</td></tr>
+<tr><td>15</td><td>10</td><td><img src="./Unicode/（Ｅ６Ｅ４）３_dc.gif"></td><td>３_dc</td></tr>
+<tr><td>16</td><td>10</td><td><img src="./Unicode/（Ｅ６５Ｂ）電車_dc.gif"></td><td>電車_dc</td></tr>
+<tr><td>17</td><td>9</td><td><img src="./Unicode/（Ｅ４ＡＢ）家_au.gif"></td><td>家_au</td></tr>
+<tr><td>18</td><td>9</td><td><img src="./Unicode/（Ｅ６Ｅ５）４_dc.gif"></td><td>４_dc</td></tr>
+<tr><td>19</td><td>9</td><td><img src="./Unicode/（Ｅ６５Ｅ）車（セダン）_dc.gif"></td><td>車（セダン）_dc</td></tr>
+<tr><td>20</td><td>9</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+</tbody></table>
+
+HTML for body_e1:
+<h2>body_e1</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>2828</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>2</td><td>2276</td><td><img src="./Unicode/（Ｅ７２Ａ）うれしい顔_dc.gif"></td><td>うれしい顔_dc</td></tr>
+<tr><td>3</td><td>1854</td><td><img src="./Unicode/（Ｅ７０３）exclamation&question_dc.gif"></td><td>exclamation&question_dc</td></tr>
+<tr><td>4</td><td>1821</td><td><img src="./Unicode/（Ｅ６Ｆ５）グッド（上向き矢印）_dc.gif"></td><td>グッド（上向き矢印）_dc</td></tr>
+<tr><td>5</td><td>1522</td><td><img src="./Unicode/（Ｅ４８３）？_au.gif"></td><td>？_au</td></tr>
+<tr><td>6</td><td>1512</td><td><img src="./Unicode/（Ｅ７０Ａ）ー（長音記号２）_dc.gif"></td><td>ー（長音記号２）_dc</td></tr>
+<tr><td>7</td><td>1248</td><td><img src="./Unicode/（Ｅ７５３）ウッシッシ_dc.gif"></td><td>ウッシッシ_dc</td></tr>
+<tr><td>8</td><td>1240</td><td><img src="./Unicode/（Ｅ４７１）顔１（うれしいカオ）_動_au.gif"></td><td>顔１（うれしいカオ）_動_au</td></tr>
+<tr><td>9</td><td>1210</td><td><img src="./Unicode/（Ｅ７２Ｂ）がまん顔_dc.gif"></td><td>がまん顔_dc</td></tr>
+<tr><td>10</td><td>1126</td><td><img src="./Unicode/（Ｅ５Ｂ１）あせあせ（飛び散る汗）_au.gif"></td><td>あせあせ（飛び散る汗）_au</td></tr>
+<tr><td>11</td><td>1061</td><td><img src="./Unicode/（Ｅ７０６）あせあせ（飛び散る汗）_dc.gif"></td><td>あせあせ（飛び散る汗）_dc</td></tr>
+<tr><td>12</td><td>1004</td><td><img src="./Unicode/（Ｅ７０４）exclamation×2_dc.gif"></td><td>exclamation×2_dc</td></tr>
+<tr><td>13</td><td>904</td><td><img src="./Unicode/（Ｅ７２９）ウィンク_dc.gif"></td><td>ウィンク_dc</td></tr>
+<tr><td>14</td><td>786</td><td><img src="./Unicode/（Ｅ７５７）げっそり_dc.gif"></td><td>げっそり_dc</td></tr>
+<tr><td>15</td><td>773</td><td><img src="./Unicode/（Ｅ７０９）ー（長音記号１）_dc.gif"></td><td>ー（長音記号１）_dc</td></tr>
+<tr><td>16</td><td>658</td><td><img src="./Unicode/（ＥＢ３１）くるり_au.gif"></td><td>くるり_au</td></tr>
+<tr><td>17</td><td>641</td><td><img src="./Unicode/（Ｅ６Ａ２）猫_dc.gif"></td><td>猫_dc</td></tr>
+<tr><td>18</td><td>640</td><td><img src="./Unicode/（ＥＡＣ５）てれてれ_動_au.gif"></td><td>てれてれ_動_au</td></tr>
+<tr><td>19</td><td>620</td><td><img src="./Unicode/（Ｅ７２Ｃ）猫2_dc.gif"></td><td>猫2_dc</td></tr>
+<tr><td>20</td><td>611</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+</tbody></table>
+
+HTML for 件名_文頭部:
+<h2>件名_文頭部</h2>
+<table border="1"><thead><tr><th>Rank</th><th>Frequency</th><th>Image</th><th>Name</th></tr></thead><tbody>
+<tr><td>1</td><td>14</td><td><img src="./Unicode/（Ｅ６ＥＣ）黒ハート_dc.gif"></td><td>黒ハート_dc</td></tr>
+<tr><td>2</td><td>13</td><td><img src="./Unicode/（Ｅ６３Ｅ）晴れ_dc.gif"></td><td>晴れ_dc</td></tr>
+<tr><td>3</td><td>13</td><td><img src="./Unicode/（ＥＡＡＢ）きらきら_動_au.gif"></td><td>きらきら_動_au</td></tr>
+<tr><td>4</td><td>11</td><td><img src="./Unicode/（Ｅ６６３）家_dc.gif"></td><td>家_dc</td></tr>
+<tr><td>5</td><td>8</td><td><img src="./Unicode/（Ｅ６Ｄ３）メール_dc.gif"></td><td>メール_dc</td></tr>
+<tr><td>6</td><td>8</td><td><img src="./Unicode/（Ｅ６ＦＡ）ぴかぴか（新しい）_dc.gif"></td><td>ぴかぴか（新しい）_dc</td></tr>
+<tr><td>7</td><td>8</td><td><img src="./Unicode/（Ｅ６８６）バースデー_dc.gif"></td><td>バースデー_dc</td></tr>
+<tr><td>8</td><td>6</td><td><img src="./Unicode/（Ｅ７０Ｂ）決定_dc.gif"></td><td>決定_dc</td></tr>
+<tr><td>9</td><td>5</td><td><img src="./Unicode/（Ｅ７５４）ウマ_dc.gif"></td><td>ウマ_dc</td></tr>
+<tr><td>10</td><td>4</td><td><img src="./Unicode/（Ｅ６Ｅ３）２_dc.gif"></td><td>２_dc</td></tr>
+<tr><td>11</td><td>4</td><td><img src="./Unicode/（Ｅ６Ｆ０）わーい（嬉しい顔）_dc.gif"></td><td>わーい（嬉しい顔）_dc</td></tr>
+<tr><td>12</td><td>4</td><td><img src="./Unicode/（Ｅ６８７）電話_dc.gif"></td><td>電話_dc</td></tr>
+<tr><td>13</td><td>4</td><td><img src="./Unicode/（Ｅ６８３）本_dc.gif"></td><td>本_dc</td></tr>
+<tr><td>14</td><td>3</td><td><img src="./Unicode/（Ｅ６５Ｂ）電車_dc.gif"></td><td>電車_dc</td></tr>
+<tr><td>15</td><td>3</td><td><img src="./Unicode/（Ｅ７４１）クローバー_dc.gif"></td><td>クローバー_dc</td></tr>
+<tr><td>16</td><td>3</td><td><img src="./Unicode/（Ｅ７１６）パソコン_dc.gif"></td><td>パソコン_dc</td></tr>
+<tr><td>17</td><td>3</td><td><img src="./Unicode/（Ｅ６８８）携帯電話_dc.gif"></td><td>携帯電話_dc</td></tr>
+<tr><td>18</td><td>3</td><td><img src="./Unicode/（Ｅ７４８）桜_dc.gif"></td><td>桜_dc</td></tr>
+<tr><td>19</td><td>3</td><td><img src="./Unicode/（Ｅ７１７）ラブレター_dc.gif"></td><td>ラブレター_dc</td></tr>
+<tr><td>20</td><td>3</td><td><img src="./Unicode/（Ｅ７４Ｆ）ひよこ_dc.gif"></td><td>ひよこ_dc</td></tr>
+</tbody></table>
+
+
+
+</body>
+</html>

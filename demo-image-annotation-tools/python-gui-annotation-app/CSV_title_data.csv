@@ -1,0 +1,5 @@
+filename, title
+"img1.jpg", "IMG1：最大FS"
+"img2.jpg", "IMG2：最大FSではないが続き大"
+"img3.jpg", "IMG3：同種複数"
+"img4.jpg", "IMG4：#の文字色が違う"
