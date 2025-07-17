@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BibTeX and JSON Converter</title>
+
+    <link rel="stylesheet" type="text/css" href="./main.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <!-- スクリプトのソース、使用していない部分も多いです。 -->
+    <div class="navbar">
+        <button onclick="showContent('mergeBib')">Merge BibTeX</button>
+        <button onclick="showContent('bibToJson')">BibTeX to JSON</button>
+        <button onclick="showContent('jsonToBib')">JSON to BibTeX</button>
+        <button onclick="showContent('mergeJson')">Merge JSON</button>
+        <button onclick="showContent('addBibJSON')" id="nav_new_JSON_bib">&nbsp; New Item</button>
+    </div>
+
+    <div id="bibToJson" class="content">
+        <h1>BibTeX to JSON Converter</h1>
+        <h3>Input BibTeX:</h3>
+        <textarea id="bibInput" rows="10" cols="80"></textarea><br><br>
+        <button onclick="convertBibToJson()">Convert to JSON</button><br><br>
+        <h3>Output JSON:</h3>
+        <textarea id="jsonOutput" rows="10" cols="80" readonly></textarea><br><br>
+        <button onclick="downloadJson()">Download JSON</button>
+        <button onclick="copyJson()">Copy to Clipboard</button>
+    </div>
+
+    <div id="jsonToBib" class="content">
+        <h1>JSON to BibTeX Converter</h1>
+        <h3>Input JSON:</h3>
+        <textarea id="jsonInput" rows="10" cols="80" placeholder="[{}, {}]のリスト形式にする。単体なら[]で挟む。"></textarea><br><br>
+        <button onclick="convertJsonToBib()">Convert to BibTeX</button><br><br>
+        <h3>Output BibTeX:</h3>
+        <textarea id="bibOutput" rows="10" cols="80" readonly></textarea><br><br>
+        <button onclick="downloadBib()">Download BibTeX</button>
+        <button onclick="copyBib()">Copy to Clipboard</button>
+    </div>
+
+
+    <div id="mergeJson" class="content">
+        <h1>Merge JSON Contents</h1>
+        <h3>Input JSON 1:</h3>
+        <textarea id="jsonInput1" rows="10" cols="80"></textarea><br><br>
+        <h3>Input JSON 2:</h3>
+        <textarea id="jsonInput2" rows="10" cols="80"></textarea><br><br>
+        <button onclick="mergeJsonFromTextarea()">Merge JSONs</button><br><br>
+        <h3>Output JSON:</h3>
+        <textarea id="mergedJsonOutput" rows="10" cols="80" readonly></textarea><br><br>
+        <button onclick="downloadMergedJson()">Download Merged JSON</button>
+        <button onclick="copyMergedJson()">Copy to Clipboard</button>
+
+        <p>同じ識別子で中身が異なる場合は一方の識別子に_1を追加して統合する。</p>
+    </div>
+
+
+    <div id="mergeBib" class="content">
+        <h1>Merge BibTeX Contents</h1>
+        <h3>Input BibTeX 1:</h3>
+        <textarea id="bibInput1" rows="10" cols="80"></textarea><br><br>
+        <h3>Input BibTeX 2:</h3>
+        <textarea id="bibInput2" rows="10" cols="80"></textarea><br><br>
+        <button onclick="mergeBib()">Merge</button><br><br>
+        <h3>Output BibTeX:</h3>
+        <textarea id="mergedBibOutput" rows="10" cols="80" readonly></textarea><br><br>
+        <button onclick="downloadMergedBib()">Download Merged BibTeX</button>
+        <button onclick="copyMergedBib()">Copy Merged BibTeX</button>
+    </div>
+
+
+
+
+    <div id="addBibJSON" class="content active">
+
+        <h2>新規書誌情報からJSONとBibTeX形式のデータを作成する</h2>
+
+        <form id="inputForm">
+
+
+            <button type="button" onclick="createJsonAndBib()" class="submit">作成</button>
+
+            <nav id="in_form_guide">
+            <button type="button" onclick="toggleGroup('groupB')">グループBを表示/非表示</button>
+            <button type="button" onclick="toggleGroup('groupC')">グループCを表示/非表示</button>
+            <button type="button" onclick="toggleGroup('groupD')">noteを表示/非表示</button>
+            </nav>
+            <br>
+
+            <div class="group" id="groupA">
+                <div>
+                    <label for="entry_type_select">entry_type:</label>
+                    <select id="entry_type_select">
+                        <option value="article">article</option>
+                        <option value="book">book</option>
+                        <option value="incollection">incollection（例：複数著者書籍の一部）</option>
+                        <option value="conference">conference</option>
+                        <option value="inproceedings">inproceedings（例：予稿集の一部）</option>
+                        <option value="proceedings">proceedings</option>
+                        <option value="manual">manual</option>
+                        <option value="booklet">booklet</option>
+                        <option value="inbook">inbook</option>
+                        <option value="techreport">techreport</option>
+                        <option value="hoyakusho">hoyakusho（独自）</option>
+                        <option value="masterthesis">masterthesis</option>
+                        <option value="phdthesis">phdthesis</option>
+                        <option value="unpublished">unpublished</option>
+                        <option value="misc">misc</option>
+                        <option value=""></option>
+                    </select>
+                    <input type="text" id="entry_type_input" placeholder="選択肢になければ自由入力（選択より優先）">
+                </div>
+            
+                <div>
+                    <label for="citation_key">citation_key:</label>
+                    <input type="text" id="citation_key" placeholder="BibTeXで使いたいキー">
+                </div>
+            
+                <div>
+                    <label for="year">year:</label>
+                    <input type="text" id="year" placeholder="YYYY">
+                </div>
+            
+                <div>
+                    <label for="author">author:</label>
+                    <input type="text" id="author" placeholder="著者（複数なら and 使用）">
+                </div>
+            
+                <div>
+                    <label for="yomi">yomi:</label>
+                    <input type="text" id="yomi" placeholder="読み仮名（日本語著者の整列のため）">
+                </div>
+
+                <div>
+                    <label for="editor">editor:</label>
+                    <input type="text" id="editor">
+                </div>
+            
+                <div>
+                    <label for="title">title:</label>
+                    <input type="text" id="title" placeholder="@bookのtitleにはこちらを使用">
+                    &nbsp; {}で挟む<input type="checkbox" id="title_brace" checked>
+                </div>
+            
+                <div>
+                    <label for="booktitle">booktitle:</label>
+                    <input type="text" id="booktitle" placeholder="@incollection, @inproceedings等で使用">
+                </div>
+            
+                <div>
+                    <label for="journal">journal:</label>
+                    <input type="text" id="journal" placeholder="@article等で使用">
+                </div>
+            
+                <div>
+                    <label for="volume">volume:</label>
+                    <input type="text" id="volume">
+                </div>
+            
+                <div>
+                    <label for="number">number:</label>
+                    <input type="text" id="number">
+                </div>
+            
+                <div>
+                    <label for="month">month:</label>
+                    <input type="text" id="month">
+                </div>
+            
+                <div>
+                    <label for="pages">pages:</label>
+                    <input type="text" id="pages" placeholder="--か-で繋ぐ">
+                </div>
+            </div>
+
+            <div class="group" id="groupB">
+                <div>B - 主にBook用</div>
+
+                <div>
+                    <label for="edition">edition:</label>
+                    <input type="text" id="edition">
+                </div>
+
+                <div>
+                    <label for="publisher">publisher:</label>
+                    <input type="text" id="publisher">
+                </div>
+
+                <div>
+                    <label for="address">address:</label>
+                    <input type="text" id="address">
+                </div>
+
+                <div>
+                    <label for="chapter">chapter:</label>
+                    <input type="text" id="chapter">
+                </div>
+            </div>
+
+            <div class="group" id="groupC">
+                <div>C - その他</div>
+                <div>
+                    <label for="key">key:</label>
+                    <input type="text" id="key" placeholder="authorがない場合のソート用">
+                </div>
+                <div>
+                    <label for="type">type:</label>
+                    <input type="text" id="type">
+                </div>
+                <div>
+                    <label for="crossref">crossref:</label>
+                    <input type="text" id="crossref">
+                </div>
+
+                <div>
+                    <label for="institution">institution:</label>
+                    <input type="text" id="institution">
+                </div>
+
+                <div>
+                    <label for="school">school:</label>
+                    <input type="text" id="school" placeholder="PhDThesis等で使用">
+                </div>
+
+                <div>
+                    <label for="annote">annote:</label>
+                    <input type="text" id="annote">
+                </div>
+
+                <div>
+                    <label for="howpublished">howpublished:</label>
+                    <input type="text" id="howpublished">
+                </div>
+            </div>
+
+            <div class="group" id="groupD">
+                <div>
+                    <label for="note">note:</label>
+                    <input type="text" id="note">
+                </div>
+            </div>
+            <button type="button" onclick="createJsonAndBib()" class="submit">↑の内容で作成</button>
+            
+        <br>
+        </form>
+
+
+        <br>
+
+        <textarea id="newBibOutput" rows="10" cols="50" readonly placeholder="BibTeX用"></textarea>
+        <button type="button" onclick="copyNewBibToClipboard()">Copy to Clipboard</button>
+
+        <br><br>
+
+        <textarea id="newJsonOutput" rows="10" cols="50" placeholder="JSON 複数繋げる場合は[]に入れて,で繋ぐ" readonly></textarea>
+        <button type="button" onclick="copyNewJsonToClipboard()">Copy to Clipboard</button>
+
+        <p>値を入れた項目のみデータ化する。ダブルクオーテーションには未対応なので、適宜``と''に置き換えて使用すること。</p>
+        <p>（BibTeX・自分用）authorは MiddleName LastName, FirstName の形式で書くこと</p>
+
+
+
+    </div>
+
+
+    
+    <script src="converter.js"></script>
+    <script src="BIB_add_item.js"></script>
+    <script>
+        function showContent(contentId) {
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => content.classList.remove('active'));
+            document.getElementById(contentId).classList.add('active');
+        }
+
+        // Initialize the default view
+        // showContent('bibToJson');
+        showContent('addBibJSON');
+    </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡単文字数カウンタ（入力欄2つ）</title>
+    <style>
+        h1 {
+            margin-bottom: 10px;
+            padding-bottom: 2px;
+        }
+        p {
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+        div.input-part {
+            margin-top:1em;
+            margin-bottom:1em;
+        }
+        textarea {
+            max-width: 95%;
+        }
+        footer {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>簡単文字数カウンタ（入力欄2つ）</h1>
+
+    <p>カウントの仕様：空白はカウントしない。結合絵文字には未対応。</p>
+    <!-- <p>入力欄を2つ分設置しています（比較を楽にするため）。</p> -->
+
+    <form>
+        <div class="input-part">
+            <label for="inputText">数えたいもの1:</label>
+            <br>
+            <textarea id="inputText" rows="12" cols="80" oninput="autoCountCharacters()"></textarea>
+            <br>
+
+            <div>
+                <!-- 
+            <input type="radio" id="mode1" name="countMode" value="1" onchange="countCharacters()" checked>
+            <label for="mode1">全角を1文字、半角を0.5文字としてカウント</label> 
+            -->
+                <label for="mode1Count">全角を1文字、半角を0.5文字としてカウント:</label>
+                <input type="text" id="mode1Count" readonly>
+            </div>
+            <div>
+                <!--
+            <input type="radio" id="mode2" name="countMode" value="2" onchange="countCharacters()">
+            <label for="mode2">全角半角ともに1文字としてカウント</label>
+            -->
+                <label for="mode2Count">全角半角ともに1文字としてカウント:</label>
+                <input type="text" id="mode2Count" readonly>
+            </div>
+        </div>
+        <div class="input-part">
+            <!-- <label for="countMode">カウントモードを選択してください:</label>
+        <select id="countMode" onchange="countCharacters()">
+            <option value="1">全角を1文字、半角を0.5文字としてカウント</option>
+            <option value="2">全角半角ともに1文字としてカウント</option> 
+            < option value="3">バイト数を計算</option>
+        </select> -->
+
+            <!-- <p>別のもの</p>-->
+
+            <label for="inputText2">数えたいもの2:</label>
+            <br>
+            <textarea id="inputText2" rows="12" cols="80" oninput="autoCountCharacters_2nd()"></textarea>
+            <br>
+
+            <div>
+                <label for="mode1Count2">全角を1文字、半角を0.5文字としてカウント:</label>
+                <input type="text" id="mode1Count2" readonly>
+            </div>
+            <div>
+                <label for="mode2Count2">全角半角ともに1文字としてカウント:</label>
+                <input type="text" id="mode2Count2" readonly>
+            </div>
+        </div>
+    </form>
+    <p id="charCount" style="display:none;">文字数: 0</p>
+
+
+    <footer>Yamazaki. 2024.</footer>
+
+    <script>
+
+        function autoCountCharacters() {
+            const text = document.getElementById('inputText').value;
+
+            const mode1Count = countMode1(text);
+            const mode2Count = countMode2(text);
+            const byteCount = countBytes(text);
+
+            document.getElementById('mode1Count').value = mode1Count;
+            document.getElementById('mode2Count').value = mode2Count;
+            // document.getElementById('byteCount').value = byteCount;
+        }
+
+        function autoCountCharacters_2nd() {
+            const text = document.getElementById('inputText2').value;
+
+            const mode1Count = countMode1(text);
+            const mode2Count = countMode2(text);
+            const byteCount = countBytes(text);
+
+            document.getElementById('mode1Count2').value = mode1Count;
+            document.getElementById('mode2Count2').value = mode2Count;
+        }
+
+        function countCharacters() {
+            const text = document.getElementById('inputText').value;
+            // const mode = document.getElementById('countMode').value;
+            const mode = document.querySelector('input[name="countMode"]:checked').value;
+            let count = 0;
+
+            switch (mode) {
+                case '1':
+                    count = countMode1(text);
+                    break;
+                case '2':
+                    count = countMode2(text);
+                    break;
+                case '3':
+                    count = countBytes(text);
+                    break;
+            }
+
+            document.getElementById('charCount').textContent = '文字数: ' + count;
+        }
+
+
+        function countMode2(text) {
+            let count = 0;
+            for (const char of text) {
+                if (!char.match(/\s/)) { // 空白文字（全角・半角・タブ・改行）を無視
+                    count += 1;
+                }
+            }
+            return count;
+        }
+
+        function countMode1(text) {
+            let count = 0;
+            for (const char of text) {
+                if (!char.match(/\s/)) { // 空白文字（全角・半角・タブ・改行）を無視
+                    if (char.match(/[ -~]/)) {
+                        count += 0.5;
+                    } else {
+                        count += 1;
+                    }
+                    // できれば絵文字に対応したいが、今は置いておく。
+                }
+            }
+            return count;
+        }
+
+        function countMode1_1(text) {
+            let count = 0;
+            for (const char of text) {
+                if (char.match(/[^\x00-\x7F]/) || char.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/)) {
+                    count += 1;
+                } else if (char.match(/[A-Za-z0-9]/)) {
+                    count += 0.5;
+                } else if (!char.match(/\s/)) { // 空白文字（全角・半角・タブ・改行）を無視
+                    count += 0;
+                }
+            }
+            return count;
+        }
+
+
+        function countBytes(text) {
+            let byteCount = 0;
+            for (const char of text) {
+                const charCode = char.charCodeAt(0);
+                if (charCode < 0x80) {
+                    byteCount += 1;
+                } else if (charCode < 0x800) {
+                    byteCount += 2;
+                } else if (charCode < 0x10000) {
+                    byteCount += 3;
+                } else {
+                    byteCount += 4;
+                }
+            }
+            return byteCount;
+        }
+    </script>
+</body>
+
+</html>
