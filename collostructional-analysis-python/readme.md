@@ -4,7 +4,7 @@ Python implementation for Collostructional Analysis, compatible with Gries's v4.
 
 ## About this Project
 
-This tool provides a Python-based implementation of Collostructional Analysis, a framework that has evolved significantly over the past two decades (**2003–2024**). 
+This tool provides a Python-based implementation of Collostructional Analysis, a framework that has evolved significantly over the past two decades (2023-). 
 
 ## Features
 
