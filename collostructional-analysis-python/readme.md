@@ -96,8 +96,8 @@ from collostructional_analysis import CollostructionalAnalysisMain
 def run_simple_analysis():
     """Example: Simple Collexeme Analysis"""
     
-    # Load your data (tab-separated or comma-separated)
-    df = pd.read_csv("input.csv")  # or pd.read_csv("input.csv", sep='\t')
+    # Load your data (comma-separated or tab-separated)
+    df = pd.read_csv("input.csv")  # or pd.read_csv("input.csv", sep='\t') for tab-separated data
     
     # Run analysis
     result = CollostructionalAnalysisMain.run(
