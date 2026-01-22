@@ -87,7 +87,7 @@ result = CollostructionalAnalysisMain.run(df, analysis_type=3)
 | aaa | ccc |
 | bbb | ddd |
 
-## Complete Example
+## Example
 
 ```python
 import pandas as pd
@@ -169,6 +169,12 @@ Based on "Coll.analysis 4.1" by Stefan Th. Gries.
 I would like to express our deepest gratitude to Anatol Stefanowitsch, Stefan Th. Gries, and their collaborators for their pioneering work in collostructural analysis since 2003. 
 
 Special thanks are also due to Stefan Th. Gries for the continuous development of the original R scripts, including the latest 2024 update (v4.1), which served as the foundation for this Python implementation.
+
+**Note**: The English documentation was drafted with the assistance of LLMs to ensure clarity. While I have reviewed the content, suggestions for linguistic refinement are highly appreciated.
+
+<!--- The English documentation was drafted with the assistance of LLMs to ensure clarity. While I have reviewed the content for accuracy, please feel free to report any unclear expressions or errors.--->
+
+<!-- The English documentation was drafted with the assistance of AI to ensure clarity. As English is not the author's primary language, suggestions or pull requests for linguistic refinement are highly appreciated. -->
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
