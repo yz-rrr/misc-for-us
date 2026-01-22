@@ -1,0 +1,175 @@
+# Collostructional Analysis for Python
+
+Python implementation for Collostructional Analysis, compatible with Gries's v4.1 script results.
+
+## About this Project
+
+This tool provides a Python-based implementation of Collostructional Analysis, a framework that has evolved significantly over the past two decades (**2003–2024**). 
+
+## Features
+
+- **Simple Collexeme Analysis**: Analyze word-construction associations
+- **Distinctive Collexeme Analysis**: Compare words across constructions
+- **Co-varying Collexeme Analysis**: Examine slot-based associations
+
+## Important Implementation Notes
+
+### Fisher-Yates Exact Test Compatibility
+Standard SciPy implementations (e.g., SciPy 1.16.3 on Google Colab) of the Fisher-Yates test can yield slightly different p-values compared to R's `fisher.test` due to differences in how two-sided p-values are calculated for non-symmetric distributions. This script includes a custom `_fisher_exact_r_style` method that replicates R's logic (summing probabilities of all tables with p <= p_observed), aiming to achieve numerical compatibility with Gries's original results.
+
+### Log Odds Ratio Calculation
+This script directly computes Log Odds Ratio based on the 2×2 contingency table definition: `log((ad)/(bc))`. Under this definition, Log Odds Ratio theoretically diverges in cases of perfect separation (b=0 or c=0). Prior research R implementations use `glm(family = binomial)`, which may stop at finite values due to IRLS numerical convergence limits even when perfect separation occurs.
+
+### LLR Sign Convention
+
+Prior research returns negative values for repulsion patterns, but this script returns absolute values. This design choice focuses on effect magnitude rather than direction, with direction indicated separately in the "Direction" column. 
+
+**Note**: This design choice may result in different ranking orders compared to the original results, particularly in Co-varying Collexeme Analysis (analysis_type=3), where results are typically sorted by LLR.
+
+## Quick Start
+
+### 1. Simple Analysis (Frequency Data)
+
+Use when you have pre-calculated frequencies:
+
+```python
+from collostructional_analysis import CollostructionalAnalysisMain
+import pandas as pd
+
+df = pd.read_csv("input.csv")
+result = CollostructionalAnalysisMain.run(
+    df, 
+    analysis_type=1,
+    word_col="WORD",
+    freq_corpus_col="FREQ_WORD_in_CORPUS", 
+    freq_const_col="FREQ_WORD_in_CONSTRUCTION",
+    total_corpus_size=138664  # Your total corpus size
+)
+```
+
+**Input format:**
+| WORD | FREQ_WORD_in_CORPUS | FREQ_WORD_in_CONSTRUCTION |
+|------|--------------------|-----------------------|
+| give | 1500 | 120 |
+| tell | 890  | 45  |
+
+### 2. Distinctive Analysis (Raw Token Data)
+
+Use when you have individual tokens:
+
+```python
+result = CollostructionalAnalysisMain.run(
+    df, 
+    analysis_type=2,
+    word_col="Verb",
+    construction_col="Construction"
+)
+```
+
+**Input format:**
+| Verb | Construction |
+|------|-------------|
+| give | ditransitive |
+| give | prepositional |
+| tell | ditransitive |
+
+### 3. Co-varying Analysis
+
+Use for slot-based analysis:
+
+```python
+result = CollostructionalAnalysisMain.run(df, analysis_type=3)
+```
+
+**Input format:**
+| WORD_SLOT1 | WORD_SLOT2 |
+|------------|------------|
+| give | him |
+| tell | her |
+
+## Complete Example
+
+```python
+import pandas as pd
+from collostructional_analysis import CollostructionalAnalysisMain
+
+def run_simple_analysis():
+    """Example: Simple Collexeme Analysis"""
+    
+    # Load your data (tab-separated or comma-separated)
+    df = pd.read_csv("input.csv")  # or pd.read_csv("input.csv", sep='\t')
+    
+    # Run analysis
+    result = CollostructionalAnalysisMain.run(
+        df, 
+        analysis_type=1,
+        word_col="WORD",
+        freq_corpus_col="FREQ_WORD_in_CORPUS",
+        freq_const_col="FREQ_WORD_in_CONSTRUCTION",
+        total_corpus_size=138664  # Your total corpus size
+    )
+    
+    # Save results
+    result.to_csv("output.csv", index=False)
+    print("Analysis complete! Results saved to output.csv")
+
+if __name__ == "__main__":
+    try:
+        run_simple_analysis()
+    except Exception as e:
+        print(f"Error: {e}")
+```
+
+## Output Columns
+
+- `Direction`: Attraction/Repulsion tendency
+- `LLR`: Log-Likelihood Ratio (absolute values; see implementation notes above)
+- `LOGODDSRATIO`: Log Odds Ratio (may show infinity for perfect separation)
+- `PMI`: Pointwise Mutual Information
+- `FYE`: Fisher-Yates Exact Test strength
+- `PEARSONRESID`: Pearson Residual
+
+Note: Additional columns may be included depending on the analysis mode.
+
+## Data Requirements
+
+### Simple Analysis
+- Word frequency in entire corpus
+- Word frequency in target construction
+- Total corpus size
+
+### Distinctive Analysis
+- Either raw tokens or frequency table
+- Word identifiers and construction labels
+
+### Co-varying Analysis
+- Raw token pairs (slot1, slot2)
+
+## Validation
+
+This implementation has been validated against Gries's R scripts. See `test_for_v4.1.py` for detailed validation examples and usage patterns.
+
+## Requirements
+
+```
+pandas>=1.3.0
+numpy>=1.21.0
+scipy>=1.6.0,<2.0.0
+```
+
+## References
+
+Based on "Coll.analysis 4.1" by Stefan Th. Gries.
+- Gries, Stefan Th. (Current script version 4.1). https://www.stgries.info/teaching/groningen/
+
+
+
+## Acknowledgments
+
+I would like to express our deepest gratitude to Anatol Stefanowitsch, Stefan Th. Gries, and their collaborators for their pioneering work in collostructural analysis since 2003. 
+
+Special thanks are also due to Stefan Th. Gries for the continuous development of the original R scripts, including the latest 2024 update (v4.1), which served as the foundation for this Python implementation.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+Copyright (c) 2026 ＠yz_rrr
