@@ -43,15 +43,15 @@ result = CollostructionalAnalysisMain.run(
     word_col="WORD",
     freq_corpus_col="FREQ_WORD_in_CORPUS", 
     freq_const_col="FREQ_WORD_in_CONSTRUCTION",
-    total_corpus_size=138664  # Your total corpus size
+    total_corpus_size=138664  # Total corpus size
 )
 ```
 
 **Input format:**
 | WORD | FREQ_WORD_in_CORPUS | FREQ_WORD_in_CONSTRUCTION |
 |------|--------------------|-----------------------|
-| give | 1500 | 120 |
-| tell | 890  | 45  |
+| aaa | 1500 | 120 |
+| bbb | 890  | 45  |
 
 ### 2. Distinctive Analysis (Raw Token Data)
 
@@ -69,9 +69,9 @@ result = CollostructionalAnalysisMain.run(
 **Input format:**
 | Verb | Construction |
 |------|-------------|
-| give | ditransitive |
-| give | prepositional |
-| tell | ditransitive |
+| aaa | ditransitive |
+| aaa | prepositional |
+| bbb | ditransitive |
 
 ### 3. Co-varying Analysis
 
@@ -84,8 +84,8 @@ result = CollostructionalAnalysisMain.run(df, analysis_type=3)
 **Input format:**
 | WORD_SLOT1 | WORD_SLOT2 |
 |------------|------------|
-| give | him |
-| tell | her |
+| aaa | ccc |
+| bbb | ddd |
 
 ## Complete Example
 
