@@ -160,8 +160,7 @@ scipy>=1.6.0,<2.0.0
 ## References
 
 Based on "Coll.analysis 4.1" by Stefan Th. Gries.
-- Gries, Stefan Th. (Current script version 4.1). https://www.stgries.info/teaching/groningen/
-
+- Gries, Stefan Th. 2024. Coll.analysis 4.1. A script for R to compute perform collostructional analyses. <https://www.stgries.info/teaching/groningen/index.html>.
 
 
 ## Acknowledgments
@@ -177,5 +176,5 @@ Special thanks are also due to Stefan Th. Gries for the continuous development o
 <!-- The English documentation was drafted with the assistance of AI to ensure clarity. As English is not the author's primary language, suggestions or pull requests for linguistic refinement are highly appreciated. -->
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see [the LICENSE file](https://opensource.org/licenses/mit-license.php) for details.
 Copyright (c) 2026 ＠yz_rrr
