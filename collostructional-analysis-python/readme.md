@@ -166,7 +166,7 @@ Based on "Coll.analysis 4.1" by Stefan Th. Gries.
 
 ## Acknowledgments
 
-I would like to express my deepest gratitude to Anatol Stefanowitsch, Stefan Th. Gries, and their collaborators for their pioneering work in collostructural analysis since 2003. 
+I would like to acknowledge Anatol Stefanowitsch, Stefan Th. Gries, and their collaborators for their foundational and pioneering work in collostructural analysis since 2003.
 
 Special thanks are also due to Stefan Th. Gries for the continuous development of the original R scripts, including the latest 2024 update (v4.1), which served as the foundation for this Python implementation.
 
