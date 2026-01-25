@@ -1,3 +1,5 @@
+# もう一回テスト走らせてから公開する。
+
 """
 Usage Examples for Collostructional Analysis
 
@@ -22,10 +24,11 @@ IMPORTANT IMPLEMENTATION NOTES:
    when perfect separation occurs.
 
 2. LLR (Log-Likelihood Ratio) Sign Convention:
-   Prior research returns negative values for repulsion patterns, but this
-   script returns absolute values. This design choice focuses on effect
-   magnitude rather than direction, with direction indicated separately
-   in the "Direction" column.
+   By default, this script returns absolute values for 
+   Log-Likelihood Ratio (LLR) and Fisher-Yates Exact test strength (FYE).
+   Update (v1.1): Signed Metrics Mode You can optionally enable signed output by 
+   setting signed_metrics=True when calling the run() method.
+   If enabled, both LLR and FYE will return negative values for repulsion patterns.
 """
 
 import numpy as np

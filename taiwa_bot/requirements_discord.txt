@@ -1,0 +1,15 @@
+# =============================================================================
+# REQUIREMENTS FOR FULL DISCORD BOT (Discord依存版)
+# =============================================================================
+
+# Discord Bot
+discord.py>=2.0.0
+
+# Core Debate Functionality
+openai>=1.0.0
+python-dotenv>=0.19.0
+requests>=2.25.1
+
+# Additional Discord Bot Features
+asyncio
+threading

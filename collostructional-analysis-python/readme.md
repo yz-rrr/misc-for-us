@@ -4,7 +4,8 @@ Python implementation for Collostructional Analysis, compatible with Gries's v4.
 
 ## About this Project
 
-This tool provides a Python-based implementation of Collostructional Analysis, a framework that has evolved significantly over the past two decades (2003-). 
+This tool provides a Python-based implementation of Collostructional Analysis, a framework that has evolved significantly over the past two decades.
+<!--  (2003-). --> 
 
 ## Features
 
@@ -15,16 +16,24 @@ This tool provides a Python-based implementation of Collostructional Analysis, a
 ## Important Implementation Notes
 
 ### Fisher-Yates Exact Test Compatibility
-Standard SciPy implementations (e.g., SciPy 1.16.3 on Google Colab) of the Fisher-Yates test can yield slightly different p-values compared to R's `fisher.test` due to differences in how two-sided p-values are calculated for non-symmetric distributions. This script includes a custom `_fisher_exact_r_style` method that replicates R's logic (summing probabilities of all tables with p <= p_observed), aiming to achieve numerical compatibility with Gries's original results.
+<!-- Standard SciPy implementations (e.g., SciPy 1.16.3 on Google Colab) of the Fisher-Yates test can yield slightly different p-values compared to R's `fisher.test` due to differences in how two-sided p-values are calculated for non-symmetric distributions. This script includes a custom `_fisher_exact_r_style` method that replicates R's logic (summing probabilities of all tables with p <= p_observed), aiming to achieve numerical compatibility with Gries's original results.
+-->
+
+Standard SciPy implementations (e.g., SciPy 1.16.3 on Google Colab) of the Fisher-Yates test can yield p-values that differ slightly from R's `fisher.test`. Our testing confirmed that these discrepancies are more pronounced in cases with weak association (low FYE values). To address this, the script includes a custom `fisher_exact_r_style` method that mimics R's logic. This method incorporates a distance-based approach, specifically designed to ensure numerical consistency with the reference test data.
+
+(Note: Users can explicitly select the probability-based method by setting `mask_method="probability"` in `fisher_exact_r_style`.)
+
 
 ### Log Odds Ratio Calculation
 This script directly computes Log Odds Ratio based on the 2×2 contingency table definition: `log((ad)/(bc))`. Under this definition, Log Odds Ratio theoretically diverges in cases of perfect separation (b=0 or c=0). Prior research R implementations use `glm(family = binomial)`, which may stop at finite values due to IRLS numerical convergence limits even when perfect separation occurs.
 
-### LLR Sign Convention
+### Metric Sign Convention (LLR & FYE)
 
-Prior research returns negative values for repulsion patterns, but this script returns absolute values. This design choice focuses on effect magnitude rather than direction, with direction indicated separately in the "Direction" column. 
+By default, this script returns absolute values for Log-Likelihood Ratio (LLR) and Fisher-Yates Exact test strength (FYE). 
 
-**Note**: This design choice may result in different ranking orders compared to the original results, particularly in Co-varying Collexeme Analysis (analysis_type=3), where results are typically sorted by LLR.
+**Update (v1.1)**: Signed Metrics Mode For advanced visualization and simulation, you can enable signed output by setting ```signed_metrics=True```. This will numerically represent Repulsion as negative values.
+* If enabled, both LLR and FYE will return negative values for repulsion patterns.
+* This mode may be useful for visualization or simulation purposes where the sign is needed to numerically represent the direction of the effect.
 
 ## Quick Start
 
@@ -125,7 +134,8 @@ if __name__ == "__main__":
 - `Direction`: Attraction/Repulsion tendency
 - `LLR`: Log-Likelihood Ratio (absolute values; see implementation notes above)
 - `LOGODDSRATIO`: Log Odds Ratio (may show infinity for perfect separation)
-- `PMI`: Pointwise Mutual Information
+- `PMI`: Pointwise Mutual Information. 
+    - Note: The column labeled `PMI` in this output corresponds to `MI` in Gries's original scripts.
 - `FYE`: Fisher-Yates Exact Test strength
 - `PEARSONRESID`: Pearson Residual
 
@@ -177,4 +187,14 @@ Special thanks are also due to Stefan Th. Gries for the continuous development o
 
 ## License
 This project is licensed under the MIT License - see [the LICENSE file](https://opensource.org/licenses/mit-license.php) for details.
-Copyright (c) 2026 ＠yz_rrr
+Copyright (c) 2026 yz_rrr
+
+
+<!--
+
+標準的なSciPy実装（例：Google ColabのSciPy 1.16.3）によるFisher-Yates検定では、Rのfisher.testと比較してp値が若干異なることがあります。テストデータからは、結合の強さがあまり強くないケース（FYEが小さいケース）で値がずれることが確認されました。このスクリプトには、Rのロジックを再現するカスタムの_fisher_exact_r_styleメソッドが含まれています。このメソッドは、テストデータの出力と一致させるために、誤差許容度を距離ベースで設計するアプローチを組み込んでいます。
+
+
+
+あるいはまあFisherの計算に2つのモードを入れてあげてもいいのかも。距離ベースが必ずしも優れているとは限らないから。
+-->
