@@ -9,9 +9,16 @@ This tool provides a Python-based implementation of Collostructional Analysis, a
 
 ## Features
 
+### Core Functionalities
+
 - **Simple Collexeme Analysis**: Analyze word-construction associations
 - **Distinctive Collexeme Analysis**: Compare words across constructions
 - **Co-varying Collexeme Analysis**: Examine slot-based associations
+
+### Operational Features
+
+- **Pipeline-Friendly Design**: Designed for non-interactive workflows, making it ideal for processing large datasets or integrating into automated data pipelines.
+- **Cloud-Ready (Google Colab Optimized)**: Compatible with cloud environments like Google Colaboratory. You can perform complex linguistic analyses directly in your browser without the need for local R installations or manual environment setup.
 
 ## Important Implementation Notes
 
@@ -19,9 +26,12 @@ This tool provides a Python-based implementation of Collostructional Analysis, a
 <!-- Standard SciPy implementations (e.g., SciPy 1.16.3 on Google Colab) of the Fisher-Yates test can yield slightly different p-values compared to R's `fisher.test` due to differences in how two-sided p-values are calculated for non-symmetric distributions. This script includes a custom `_fisher_exact_r_style` method that replicates R's logic (summing probabilities of all tables with p <= p_observed), aiming to achieve numerical compatibility with Gries's original results.
 -->
 
-Standard SciPy implementations (e.g., SciPy 1.16.3 on Google Colab) of the Fisher-Yates test can yield p-values that differ slightly from R's `fisher.test`. Our testing confirmed that these discrepancies are more pronounced in cases with weak association (low FYE values). To address this, the script includes a custom `fisher_exact_r_style` method that mimics R's logic. This method incorporates a distance-based approach, specifically designed to ensure numerical consistency with the reference test data.
+The original R script utilizes a custom `fisher.test.mpfr` function. Due to differences in implementation logic, $p$-values may diverge from standard calculation methods, particularly in cases with weak associations (low FYE values).
+To address these discrepancies and maintain numerical consistency with reference data (e.g., `1_out.csv`), this script provides the `calculate_fisher_p_custom` method.
 
-(Note: Users can explicitly select the probability-based method by setting `mask_method="probability"` in `fisher_exact_r_style`.)
+**Calculation Methods:** The script supports two strategies for defining the two-sided rejection region. Users can toggle these via the `mask_method` parameter:
+* distance (Default): Sums probabilities of all tables where the count deviates from the expected value as much as, or more than, the observed count. This method is intended for compatibility with Gries's original results (e.g. `1_out.csv`).
+* probability: Sums probabilities of all tables where $P(table) \le P(observed)$. This aligns with the standard R fisher.test behavior.
 
 
 ### Log Odds Ratio Calculation

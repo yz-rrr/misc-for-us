@@ -29,7 +29,7 @@ class AssociationStatsKernel:
     
     Functions as pure logic without state, returning metrics for 
     contingency table input (a,b,c,d).
-    Uses R-compatible fisher_exact_r_style method to resolve 
+    Uses R-compatible calculate_fisher_p_custom method to resolve 
     potential discrepancies with SciPy versions.
     """
 
@@ -103,23 +103,23 @@ class AssociationStatsKernel:
         return pd.Series(results)
 
     @staticmethod
-    def fisher_exact_r_style(a, b, c, d, mask_method="distance"):
+    def calculate_fisher_p_custom(a, b, c, d, mask_method="distance"):
         """
         Calculates Fisher's Exact Test p-value using a distance-from-expectation approach.
         
-        This logic mimics specific R implementations (e.g., Gries v4.1 / certain fisher.test configurations)
-        where the two-sided p-value is defined by summing probabilities of tables that are 
-        as divergent or more divergent from the expected value than the observed table.
+        It allows switching between a 'distance-based' approach (intended for Gries compatibility) 
+        and a 'probability-based' approach.
         
         Args:
             a, b, c, d: Cell counts of the 2x2 contingency table.
             mask_method (str): Strategy for defining the two-sided rejection region.
-                - "probability"  Sums probabilities of all tables
-                    where P(table) <= P(observed).
-                - "distance" (default): Sums probabilities of all tables where the count deviates from the 
-                  expected value as much as or more than the observed count.
-                  This method aligns wirh Gries's R Script results in tests (1_out.csv).
-        Returns:
+                - "distance" (default): 
+                  Sums probabilities of all tables where the count 
+                  deviates from the expected value as much as or more than the observed count.
+                  This method aligns with Gries's R Script results in tests (1_out.csv).
+                 - "probability":
+                  Sums probabilities of all tables where P(table) <= P(observed).
+               Returns:
             float: Two-sided p-value.
         """
         # Calculate marginal sums and total
@@ -146,6 +146,7 @@ class AssociationStatsKernel:
         if mask_method == "probability":
             # --- Probability-Based Logic ---
             # Sum probabilities of all tables where P(table) <= P(observed)
+            # A small epsilon is used to handle floating-point inaccuracies.
             epsilon = 1e-7
             threshold = log_p_obs + np.log(1 + epsilon)
             mask_prob = all_log_p <= threshold
@@ -153,7 +154,7 @@ class AssociationStatsKernel:
 
         elif mask_method == "distance":
             
-            # --- Distance-Based Logic (The key to matching R) ---
+            # --- Distance-Based Logic (for Gries / fisher.test.mpfr Compatibility) ---
             # Instead of summing probabilities smaller than P(observed), we sum probabilities
             # of events where the distance from the expected value is >= the observed distance.
             #
@@ -230,7 +231,7 @@ class AssociationStatsKernel:
             # Use R-compatible implementation to resolve discrepancies
             # print("new Fisher")  # Debug line - kept for reference
             # _, p_val = fisher_exact([[a, b], [c, d]])  # SciPy version
-            p_val = AssociationStatsKernel.fisher_exact_r_style(a, b, c, d)
+            p_val = AssociationStatsKernel.calculate_fisher_p_custom(a, b, c, d)
             if p_val > 0:
                 strength = -np.log10(p_val)
             else:
