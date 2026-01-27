@@ -298,15 +298,16 @@ if __name__ == "__main__":
         df_in = pd.read_csv("3.csv", sep='\t')
         df_exp = pd.read_csv("3_out.csv", sep='\t')
 
-        # N=200 は推論されるため指定不要
+        # N=200 is inferred so no need to specify
         res = CollostructionalAnalysisMain.run(df_in, analysis_type=3)
 
         mapping = {
             "Direction": "RELATION"
         }
 
-        # 1. key_col をリストにして複合キーでソート
-        # 2. join_on を指定して、ResultにあるペアだけをExpectedから抜き出して比較
+        # key_col is specified as a list and sorted by the composite key
+        # Specify join_on to extract only the pairs in Result from Expected and compare
+
         tester.compare(
             res, df_exp,
             key_col=["WORD_SLOT1", "WORD_SLOT2"],
