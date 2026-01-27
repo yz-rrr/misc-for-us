@@ -3,6 +3,7 @@ Collostructional Analysis for Python
 
 Python Code for comparison with Gries's v4.1 script results.
 (https://www.stgries.info/teaching/groningen/)
+
 Supports:
 * COLLOCATIONAL / COLLEXEME ANALYSIS
 * (MULTIPLE) DISTINCTIVE COLLOCATE / COLLEXEME ANALYSIS
@@ -15,11 +16,17 @@ Tested with:
 - pandas 2.2.2
 (Google Colab)
 
+
+Reference:
+* Gries, Stefan Th. 2024. Coll.analysis 4.1. A script for R to compute perform collostructional analyses.
+ <https://www.stgries.info/teaching/groningen/index.html>.
+
 """
 
 import pandas as pd
 import numpy as np
-from scipy.stats import hypergeom, logsumexp  # we didn't use fisher_exact
+from scipy.stats import hypergeom # we didn't use fisher_exact
+from scipy.special import logsumexp
 from abc import ABC, abstractmethod
 
 
@@ -29,8 +36,6 @@ class AssociationStatsKernel:
     
     Functions as pure logic without state, returning metrics for 
     contingency table input (a,b,c,d).
-    Uses R-compatible calculate_fisher_p_custom method to resolve 
-    potential discrepancies with SciPy versions.
     """
 
     @classmethod
@@ -43,7 +48,8 @@ class AssociationStatsKernel:
         total_corpus_size: int = None,
         label_pos: str = "Attraction",
         label_neg: str = "Repulsion",
-        signed_metrics: bool = False  # <--- 変更: signed -> signed_metrics
+        signed_metrics: bool = False,
+        include_fisher: bool = True
     ) -> pd.Series:
         """
         Facade method to calculate all metrics and return as Series.
@@ -64,7 +70,8 @@ class AssociationStatsKernel:
 
         # Individual Metrics Calculations Log Odds
         lo_stats = cls.calc_log_odds_stats(a, b, c, d)
-        fisher_stats = cls.calc_fisher_stats(a, b, c, d, N)
+        if include_fisher:
+            fisher_stats = cls.calc_fisher_stats(a, b, c, d, N, debug=False)
         llr = cls.calc_llr(a, b, c, d, N, expected_a)
         pmi = cls.calc_pmi(a, b, c, d, N)
         dp_stats = cls.calc_delta_p(a, b, c, d)
@@ -77,14 +84,15 @@ class AssociationStatsKernel:
             else np.nan
         )
 
-        # --- Apply Sign Logic if requested ---
-        fye_score = fisher_stats.get("FYE", np.nan)     
-        # 変数名も統一して signed_metrics を使用
-        if signed_metrics and not (a > expected_a):
-            llr = -llr
-            if pd.notna(fye_score):
-                fye_score = -fye_score
-                fisher_stats["FYE"] = fye_score
+        if include_fisher:
+            # --- Apply Sign Logic if requested ---
+            fye_score = fisher_stats.get("FYE", np.nan)     
+            # check signed_metrics
+            if signed_metrics and not (a > expected_a):
+                llr = -llr
+                if pd.notna(fye_score):
+                    fye_score = -fye_score
+                    fisher_stats["FYE"] = fye_score
 
         # Consolidate results
         results = {
@@ -96,7 +104,8 @@ class AssociationStatsKernel:
             "a": a, "b": b, "c": c, "d": d
         }
         results.update(lo_stats)
-        results.update(fisher_stats)
+        if include_fisher:
+            results.update(fisher_stats)
         results.update(dp_stats)
         results.update(kld_stats)
 
@@ -225,7 +234,7 @@ class AssociationStatsKernel:
         }
 
     @staticmethod
-    def calc_fisher_stats(a, b, c, d, N):
+    def calc_fisher_stats(a, b, c, d, N, debug: bool = False):
         """Calculate Fisher-Yates Exact Test & Strength (-log10 p)"""
         try:
             # Use R-compatible implementation to resolve discrepancies
@@ -235,8 +244,9 @@ class AssociationStatsKernel:
             if p_val > 0:
                 strength = -np.log10(p_val)
             else:
-                print("Underflow in Fisher p-value calculation")
-                print(f"p_val={p_val}, a={a}, b={b}, c={c}, d={d}, N={N}")
+                if debug:
+                    print("Underflow in Fisher p-value calculation")
+                    print(f"p_val={p_val}, a={a}, b={b}, c={c}, d={d}, N={N}")
                 # Underflow rescue using direct log calculation
                 log_p = hypergeom.logpmf(a, N, a + c, a + b)
                 strength = -(log_p / np.log(10))
@@ -332,14 +342,16 @@ class CollexemeAnalyzer(ABC):
         pass
 
     def _apply_metrics(self, row, a, b, c, d, N, label_pos, label_neg,
-                       signed_metrics: bool = False) -> pd.Series:
+                       signed_metrics: bool = False,
+                       include_fisher: bool = True) -> pd.Series:
         """Helper to call Statistics Kernel"""
         return AssociationStatsKernel.calculate_all_metrics(
             a, b, c, d, 
             total_corpus_size=N, 
             label_pos=label_pos, 
             label_neg=label_neg,
-            signed_metrics=signed_metrics
+            signed_metrics=signed_metrics,
+            include_fisher=include_fisher
         )
 
 
@@ -353,7 +365,8 @@ class SimpleCollexemeAnalyzer(CollexemeAnalyzer):
         freq_corpus_col: str, 
         freq_const_col: str, 
         total_corpus_size: int = None,
-        signed_metrics: bool = False
+        signed_metrics: bool = False,
+        include_fisher: bool = True
     ) -> pd.DataFrame:
         """Execute Simple Collexeme Analysis"""
         N = (total_corpus_size 
@@ -369,7 +382,8 @@ class SimpleCollexemeAnalyzer(CollexemeAnalyzer):
             d = N - C_total - c
             return self._apply_metrics(
                 row, a, b, c, d, N, "Attraction", "Repulsion",
-                signed_metrics=signed_metrics
+                signed_metrics=signed_metrics,
+                include_fisher=include_fisher
             )
 
         metrics = df.apply(_process_row, axis=1)
@@ -399,7 +413,8 @@ class DistinctiveCollexemeAnalyzer(CollexemeAnalyzer):
         construction_col: str = None, 
         count_cols: list = None, 
         total_corpus_size: int = None,
-        signed_metrics: bool = False
+        signed_metrics: bool = False,
+        include_fisher: bool = False
     ) -> pd.DataFrame:
         """Execute Distinctive Collexeme Analysis"""
         # Preprocessing (Wide Format conversion)
@@ -426,7 +441,8 @@ class DistinctiveCollexemeAnalyzer(CollexemeAnalyzer):
         if n_const == 2:
             return self._handle_two_constructions(
                 counts, constructions, word_col, total_corpus_size,
-                signed_metrics=signed_metrics
+                signed_metrics=signed_metrics,
+                include_fisher=include_fisher
             )
         else:
             # Provides	fast	quick	rapid	swift	SUMABSDEV	LARGESTPREF
@@ -437,7 +453,8 @@ class DistinctiveCollexemeAnalyzer(CollexemeAnalyzer):
 
     def _handle_two_constructions(
         self, counts, constructions, word_col, total_corpus_size=None,
-        signed_metrics: bool = False
+        signed_metrics: bool = False,
+        include_fisher: bool = False
     ):
         """Handle standard 2-construction DCA"""
         const_A, const_B = constructions[0], constructions[1]
@@ -455,7 +472,8 @@ class DistinctiveCollexemeAnalyzer(CollexemeAnalyzer):
             d = total_B - c
             return self._apply_metrics(
                 row, a, b, c, d, grand_total, const_A, const_B,
-                signed_metrics=signed_metrics
+                signed_metrics=signed_metrics,
+                include_fisher=include_fisher
             )
 
         metrics = counts.apply(_process_row, axis=1)
@@ -512,7 +530,8 @@ class CovaryingCollexemeAnalyzer(CollexemeAnalyzer):
         slot1_col: str, 
         slot2_col: str, 
         total_corpus_size: int = None,
-        signed_metrics: bool = False
+        signed_metrics: bool = False,
+        include_fisher: bool = False
     ) -> pd.DataFrame:
         """Execute Co-varying Collexeme Analysis"""
         pair_counts = (
@@ -534,7 +553,8 @@ class CovaryingCollexemeAnalyzer(CollexemeAnalyzer):
             d = N - (a + b + c)
             return self._apply_metrics(
                 row, a, b, c, d, N, "attraction", "repulsion",
-                signed_metrics=signed_metrics
+                signed_metrics=signed_metrics,
+                include_fisher=include_fisher
             )
 
         metrics = pair_counts.apply(_process_row, axis=1)

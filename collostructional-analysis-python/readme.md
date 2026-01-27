@@ -23,8 +23,7 @@ This tool provides a Python-based implementation of Collostructional Analysis, a
 ## Important Implementation Notes
 
 ### Fisher-Yates Exact Test Compatibility
-<!-- Standard SciPy implementations (e.g., SciPy 1.16.3 on Google Colab) of the Fisher-Yates test can yield slightly different p-values compared to R's `fisher.test` due to differences in how two-sided p-values are calculated for non-symmetric distributions. This script includes a custom `_fisher_exact_r_style` method that replicates R's logic (summing probabilities of all tables with p <= p_observed), aiming to achieve numerical compatibility with Gries's original results.
--->
+
 
 The original R script utilizes a custom `fisher.test.mpfr` function. Due to differences in implementation logic, $p$-values may diverge from standard calculation methods, particularly in cases with weak associations (low FYE values).
 To address these discrepancies and maintain numerical consistency with reference data (e.g., `1_out.csv`), this script provides the `calculate_fisher_p_custom` method.
@@ -191,20 +190,7 @@ Special thanks are also due to Stefan Th. Gries for the continuous development o
 
 **Note**: The English documentation was drafted with the assistance of LLMs to ensure clarity. While I have reviewed the content, suggestions for linguistic refinement are highly appreciated.
 
-<!--- The English documentation was drafted with the assistance of LLMs to ensure clarity. While I have reviewed the content for accuracy, please feel free to report any unclear expressions or errors.--->
-
-<!-- The English documentation was drafted with the assistance of AI to ensure clarity. As English is not the author's primary language, suggestions or pull requests for linguistic refinement are highly appreciated. -->
-
 ## License
 This project is licensed under the MIT License - see [the LICENSE file](https://opensource.org/licenses/mit-license.php) for details.
 Copyright (c) 2026 yz_rrr
 
-
-<!--
-
-標準的なSciPy実装（例：Google ColabのSciPy 1.16.3）によるFisher-Yates検定では、Rのfisher.testと比較してp値が若干異なることがあります。テストデータからは、結合の強さがあまり強くないケース（FYEが小さいケース）で値がずれることが確認されました。このスクリプトには、Rのロジックを再現するカスタムの_fisher_exact_r_styleメソッドが含まれています。このメソッドは、テストデータの出力と一致させるために、誤差許容度を距離ベースで設計するアプローチを組み込んでいます。
-
-
-
-あるいはまあFisherの計算に2つのモードを入れてあげてもいいのかも。距離ベースが必ずしも優れているとは限らないから。
--->

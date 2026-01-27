@@ -1,7 +1,5 @@
-# もう一回テスト走らせてから公開する。
-
 """
-Usage Examples for Collostructional Analysis
+Test Cases and Usage Examples for the Collostructional Analysis Methods
 
 This file serves dual purposes:
 1. Validation tests against Gries's v4.1 results
@@ -307,8 +305,7 @@ if __name__ == "__main__":
             "Direction": "RELATION"
         }
 
-        # 修正ポイント:
-        # 1. key_col をリストにして複合キーでソート (順序を一意にするため)
+        # 1. key_col をリストにして複合キーでソート
         # 2. join_on を指定して、ResultにあるペアだけをExpectedから抜き出して比較
         tester.compare(
             res, df_exp,
@@ -317,3 +314,5 @@ if __name__ == "__main__":
             join_on=["WORD_SLOT1", "WORD_SLOT2"]
         )
     except Exception as e: print(f"Error 3: {e}")
+
+    print("\n=== ALL TESTS COMPLETED ===")
