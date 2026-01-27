@@ -107,6 +107,9 @@ class CollostructionalAnalysisTester:
 
         common_cols = [c for c in expected.columns if c in res.columns]
 
+        print("Target Columns:")
+        print(common_cols)
+
         # 6. Value comparison
         total_rows = len(res)
         # Set of row indices with at least one column mismatch
