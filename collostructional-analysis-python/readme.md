@@ -1,6 +1,6 @@
 # Collostructional Analysis for Python
 
-Python implementation for Collostructional Analysis, compatible with Gries's v4.1 script results.
+Python implementation for Collostructional Analysis, compatible with Gries's v4.1 script (Gries 2024) results.
 
 ## About this Project
 
@@ -182,6 +182,8 @@ scipy>=1.6.0,<2.0.0
 Based on "Coll.analysis 4.1" by Stefan Th. Gries.
 - Gries, Stefan Th. 2024. Coll.analysis 4.1. A script for R to compute perform collostructional analyses. <https://www.stgries.info/teaching/groningen/index.html>.
 
+- Stefanowitsch, Anatol and Stefan Th. Gries. 2003. Collostructions: investigating the interaction between words and constructions. <i>International Journal of Corpus Linguistics</i> 8(2): 209–243.
+- Gries, Stefan Th. 2023. Overhauling Collostructional Analysis: Towards More Descriptive Simplicity and More Explanatory Adequacy. <i>Cognitive Semantics</i> 9(3): 351–386.
 
 ## Acknowledgments
 
