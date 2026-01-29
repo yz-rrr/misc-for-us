@@ -1,11 +1,12 @@
 # Collostructional Analysis for Python
 
-Python implementation for Collostructional Analysis, compatible with Gries's v4.1 script (Gries 2024) results.
+Python implementation for Collostructional Analysis.
+Numerical results have been validated against Gries (2024) Coll.analysis v4.1 and show practical agreement within predefined tolerance bounds.
+See `test_for_v4.1.py` for validation procedures and reproducibility checks.
 
 ## About this Project
 
 This tool provides a Python-based implementation of Collostructional Analysis, a framework that has evolved significantly over the past two decades.
-<!--  (2003-). --> 
 
 ## Features
 
@@ -35,6 +36,7 @@ This is intended for compatibility with the standard R fisher.test behavior.
 
 
 ### Log Odds Ratio Calculation
+
 This script directly computes Log Odds Ratio based on the 2×2 contingency table definition: `log((ad)/(bc))`. Under this definition, Log Odds Ratio theoretically diverges in cases of perfect separation (b=0 or c=0). Prior research R implementations use `glm(family = binomial)`, which may stop at finite values due to IRLS numerical convergence limits even when perfect separation occurs.
 
 ### Metric Sign Convention (LLR & FYE)
@@ -47,12 +49,28 @@ By default, this script returns absolute values for Log-Likelihood Ratio (LLR) a
 
 ## Quick Start
 
+### Import Note
+
+Depending on your environment, please use the appropriate import statement:
+
+* Default (running from the repository root):
+
+```python
+from core.collostructional_analysis import CollostructionalAnalysisMain
+```
+
+* If you are inside the `core` directory or using Google Colab (this script uploaded directly):
+
+```python
+from collostructional_analysis import CollostructionalAnalysisMain
+```
+
 ### 1. Simple Analysis (Frequency Data)
 
 Use when you have pre-calculated frequencies:
 
 ```python
-from collostructional_analysis import CollostructionalAnalysisMain
+from core.collostructional_analysis import CollostructionalAnalysisMain
 import pandas as pd
 
 df = pd.read_csv("input.csv")
@@ -71,6 +89,7 @@ result = CollostructionalAnalysisMain.run(
 |------|--------------------|-----------------------|
 | aaa | 1500 | 120 |
 | bbb | 890  | 45  |
+| ccc | 500  | 300 |
 
 ### 2. Distinctive Analysis (Raw Token Data)
 
@@ -106,11 +125,38 @@ result = CollostructionalAnalysisMain.run(df, analysis_type=3)
 | aaa | ccc |
 | bbb | ddd |
 
+### 4. Direct Calculation (Single Contingency Table)
+
+If you already have the values for a 2x2 contingency table (a, b, c, d) and wish to calculate all association metrics for a specific case without using a DataFrame:
+
+```python
+from core.collostructional_analysis import CollostructionalAnalysisMain
+
+# Define your 2x2 contingency table values
+a0, b0, c0, d0 = 120, 1000, 500, 9000
+# a: target word in target construction
+# b: target word in other constructions
+# c: other words in target construction
+# d: other words in other constructions
+
+result = CollostructionalAnalysisMain.calculate_all_metrics(
+    a=a0, b=b0, c=c0, d=d0,
+    total_corpus_size=(a0 + b0 + c0 + d0),
+    signed_metrics=False # If True, returns negative values for LLR and FYE for Repulsion patterns
+)
+
+print(result)
+# Returns a dictionary containing LLR, PMI, LOGODDSRATIO, FYE, and PEARSONRESID.
+```
+
+**Note on Signed Metrics**: When `signed_metrics=True` is enabled, LLR and FYE will be returned as negative values to represent Repulsion (where $ad < bc$). This may be useful for distinguishing between attraction and repulsion in visualizations.
+
+
 ## Example
 
 ```python
 import pandas as pd
-from collostructional_analysis import CollostructionalAnalysisMain
+from core.collostructional_analysis import CollostructionalAnalysisMain
 
 def run_simple_analysis():
     """Example: Simple Collexeme Analysis"""
@@ -182,8 +228,8 @@ scipy>=1.6.0,<2.0.0
 Based on "Coll.analysis 4.1" by Stefan Th. Gries.
 - Gries, Stefan Th. 2024. Coll.analysis 4.1. A script for R to compute perform collostructional analyses. <https://www.stgries.info/teaching/groningen/index.html>.
 
-- Stefanowitsch, Anatol and Stefan Th. Gries. 2003. Collostructions: investigating the interaction between words and constructions. <i>International Journal of Corpus Linguistics</i> 8(2): 209–243.
 - Gries, Stefan Th. 2023. Overhauling Collostructional Analysis: Towards More Descriptive Simplicity and More Explanatory Adequacy. <i>Cognitive Semantics</i> 9(3): 351–386.
+- Stefanowitsch, Anatol and Stefan Th. Gries. 2003. Collostructions: investigating the interaction between words and constructions. <i>International Journal of Corpus Linguistics</i> 8(2): 209–243.
 
 ## Acknowledgments
 

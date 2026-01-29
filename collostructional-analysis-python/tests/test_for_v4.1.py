@@ -3,15 +3,22 @@ Test Cases and Usage Examples for the Collostructional Analysis Methods
 
 This file serves dual purposes:
 1. Validation tests against Gries's v4.1 results
-    * To run these tests, you must place the sample input/output files 
-      (e.g., 1.csv, 1_out.csv, 2a.csv, etc.) in the same directory.
-    * These files are available at the official website of Stefan Th. Gries:
-      https://www.stgries.info/teaching/groningen/
-2. Usage examples for different analysis types
+2. Usage examples for different analysis types:
+    See the test cases below for practical usage patterns.
 
-See the test cases below for practical usage patterns.
+Requirements for Validation:
+* Sample Data: Please download the sample input/output files 
+    (e.g., 1.csv, 1_out.csv, 2a.csv, 2a_out.csv, etc.) from the official website of 
+    Stefan Th. Gries: https://www.stgries.info/teaching/groningen/
+* File Placement: Place these files in your current working directory 
+    (typically the root of this repository where you run the script).
+    * Note: The script utilizes `pd.read_csv("1.csv")`.
+    * If you prefer to store data in a different directory, 
+        please modify the file paths in the script accordingly.
+* Environment: This script was primarily developed and verified on Google Colab.
 
-IMPORTANT IMPLEMENTATION NOTES:
+
+Important Implementation Notes:
 
 1. Log Odds Ratio Calculation:
    This script directly computes Log Odds Ratio based on the 2×2 contingency
@@ -22,16 +29,32 @@ IMPORTANT IMPLEMENTATION NOTES:
    when perfect separation occurs.
 
 2. LLR (Log-Likelihood Ratio) Sign Convention:
-   By default, this script returns absolute values for 
+   By default, this script returns absolute values for
    Log-Likelihood Ratio (LLR) and Fisher-Yates Exact test strength (FYE).
-   Update (v1.1): Signed Metrics Mode You can optionally enable signed output by 
+   Update (v1.1): Signed Metrics Mode You can optionally enable signed output by
    setting signed_metrics=True when calling the run() method.
    If enabled, both LLR and FYE will return negative values for repulsion patterns.
 """
 
+import sys
+import os
 import numpy as np
 import pandas as pd
-from collostructional_analysis import CollostructionalAnalysisMain
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+try:
+    # 1. repository structure with package
+    from core.collostructional_analysis import CollostructionalAnalysisMain
+except ImportError:
+    # 2. Loading in Colab or flat structure (when files are in the same location)
+    from collostructional_analysis import CollostructionalAnalysisMain
+
+
+TEST_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def repr_dir(filename):
+    return os.path.join(TEST_DIR, filename)
 
 
 class CollostructionalAnalysisTester:
@@ -207,17 +230,20 @@ class CollostructionalAnalysisTester:
             print("  >>> TEST FAILED: Mismatches found.")
             return False
 
+
+
 # ==========================================
 # RUNNING THE TESTS
 # ==========================================
 if __name__ == "__main__":
     tester = CollostructionalAnalysisTester(atol=1e-4, rtol=1e-3)
 
-    # Note: 1_out.csv is missing in user uploads, skipping Test 1 verification against file.
+    # Note: 1_out.csv is missing, skipping Test 1 verification against file.
     try:
         print("\n=== CASE 1: Simple (Freq) ===")
-        df_in = pd.read_csv("1.csv", sep='\t')
-        df_exp = pd.read_csv("1_out.csv", sep='\t')
+
+        df_in = pd.read_csv(repr_dir("1.csv"), sep='\t')
+        df_exp = pd.read_csv(repr_dir("1_out.csv"), sep='\t')
 
         res = CollostructionalAnalysisMain.run(df_in, analysis_type=1,
                                                word_col="WORD",
@@ -234,15 +260,15 @@ if __name__ == "__main__":
         # 1_out has KLD columns, make sure they are checked.
         tester.compare(res, df_exp, key_col="WORD", col_mapping=mapping)
 
-    except Exception as e: print(f"Error 2a: {e}")
+    except Exception as e: print(f"Error 1: {e}")
 
 
 
     # --- TEST 2a: Distinctive (2a.csv) ---
     try:
         print("\n=== CASE 2a: Distinctive (Raw) ===")
-        df_in = pd.read_csv("2a.csv", sep='\t')
-        df_exp = pd.read_csv("2a_out.csv", sep='\t')
+        df_in = pd.read_csv(repr_dir("2a.csv"), sep='\t')
+        df_exp = pd.read_csv(repr_dir("2a_out.csv"), sep='\t')
 
         res = CollostructionalAnalysisMain.run(df_in, analysis_type=2,
                                                word_col="Verb",
@@ -263,8 +289,8 @@ if __name__ == "__main__":
     # --- TEST 2b: Distinctive (Freq) (2b.csv) ---
     try:
         print("\n=== CASE 2b: Distinctive (Freq) ===")
-        df_in = pd.read_csv("2b.csv", sep='\t')
-        df_exp = pd.read_csv("2b_out.csv", sep='\t')
+        df_in = pd.read_csv(repr_dir("2b.csv"), sep='\t')
+        df_exp = pd.read_csv(repr_dir("2b_out.csv"), sep='\t')
 
         res = CollostructionalAnalysisMain.run(df_in,
                                                analysis_type=2, word_col="VERB")
@@ -285,8 +311,8 @@ if __name__ == "__main__":
     # --- TEST 2c: Multiple (2c.csv) ---
     try:
         print("\n=== CASE 2c: Multiple ===")
-        df_in = pd.read_csv("2c.csv", sep='\t')
-        df_exp = pd.read_csv("2c_out.csv", sep='\t')
+        df_in = pd.read_csv(repr_dir("2c.csv"), sep='\t')
+        df_exp = pd.read_csv(repr_dir("2c_out.csv"), sep='\t')
 
         res = CollostructionalAnalysisMain.run(df_in, analysis_type=2, word_col="WORD", construction_col="CONSTRUCTION")
 
@@ -298,8 +324,8 @@ if __name__ == "__main__":
     # --- TEST 3: Co-varying (3.csv) ---
     try:
         print("\n=== CASE 3: Co-varying ===")
-        df_in = pd.read_csv("3.csv", sep='\t')
-        df_exp = pd.read_csv("3_out.csv", sep='\t')
+        df_in = pd.read_csv(repr_dir("3.csv"), sep='\t')
+        df_exp = pd.read_csv(repr_dir("3_out.csv"), sep='\t')
 
         # N=200 is inferred so no need to specify
         res = CollostructionalAnalysisMain.run(df_in, analysis_type=3)
