@@ -1,6 +1,0 @@
-discord.py
-openai
-gspread
-oauth2client
-python-dotenv
-pandas
